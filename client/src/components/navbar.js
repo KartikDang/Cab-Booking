@@ -5,6 +5,7 @@ import React, { useRef } from "react";
 import { Container, Row, Col } from "reactstrap";
 import { Link, NavLink } from "react-router-dom";
 // import "../../styles/header.css";
+import { useNavigate } from 'react-router-dom';
 
 const navLinks = [
     {
@@ -26,7 +27,13 @@ const navLinks = [
 ];
 const Navbar=()=>{
 
+    const navigate = useNavigate();
+
     const menuRef = useRef(null);
+
+    function handleClick(route){
+        navigate(route);
+    }
 
     const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
     return (
@@ -134,12 +141,14 @@ const Navbar=()=>{
 
                         <Col lg="6" md="6" sm="6">
                             <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
-                                <Link to="#" className=" d-flex align-items-center gap-1">
-                                    <i class="ri-login-circle-line"></i> Login
+                                <Link to="/login" className=" d-flex align-items-center gap-1">
+                                    <i class="ri-login-circle-line"></i> 
+                                    <button type="button" class="btn btn-outline-secondary btn-out">Login</button>
                                 </Link>
 
-                                <Link to="#" className=" d-flex align-items-center gap-1">
-                                    <i class="ri-user-line"></i> Register
+                                <Link to="/register" className=" d-flex align-items-center gap-1">
+                                    <i class="ri-user-line"></i>
+                                    <button type="button" class="btn btn-outline-light btn-out">Register</button>
                                 </Link>
                             </div>
                         </Col>
