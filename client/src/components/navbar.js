@@ -19,11 +19,6 @@ const navLinks = [
         path: "/cars",
         display: "Cars",
     },
-
-    {
-        path: "/blogs",
-        display: "Blog",
-    },
     {
         path: "/contact",
         display: "Contact",
@@ -132,7 +127,7 @@ const Navbar=()=>{
                             <div className="header__top__left">
                                 <span>Need Help?</span>
                                 <span className="header__top__help">
-                                    <i class="ri-phone-fill"></i> +1-202-555-0149
+                                    <i class="ri-phone-fill"></i> +91 919191919191
                                 </span>
                             </div>
                         </Col>
@@ -162,7 +157,7 @@ const Navbar=()=>{
                                     <Link to="/home" className=" d-flex align-items-center gap-2">
                                         <i class="ri-car-line"></i>
                                         <span>
-                                            Rent Car <br /> Service
+                                            Cab <br /> Service
                                         </span>
                                     </Link>
                                 </h1>
@@ -175,8 +170,8 @@ const Navbar=()=>{
                                     <i class="ri-earth-line"></i>
                                 </span>
                                 <div className="header__location-content">
-                                    <h4>Bangladesh</h4>
-                                    <h6>Sylhet City, Bangladesh</h6>
+                                    <h4>India</h4>
+                                    <h6>Delhi, India</h6>
                                 </div>
                             </div>
                         </Col>
@@ -187,8 +182,8 @@ const Navbar=()=>{
                                     <i class="ri-time-line"></i>
                                 </span>
                                 <div className="header__location-content">
-                                    <h4>Sunday to Friday</h4>
-                                    <h6>10am - 7pm</h6>
+                                    <h4>Monday to Sunday</h4>
+                                    <h6>8am - 11pm</h6>
                                 </div>
                             </div>
                         </Col>
@@ -211,12 +206,12 @@ const Navbar=()=>{
 
             {/* ========== main navigation =========== */}
 
-            <div className="main__navbar">
+            {/* <div className="main__navbar">
                 <Container>
                     <div className="navigation__wrapper d-flex align-items-center justify-content-between">
                         <span className="mobile__menu">
                             {/* <i class="ri-menu-line" onClick={toggleMenu}></i> */}
-                        </span>
+                        {/* </span>
 
                         <div className="navigation" ref={menuRef} onClick={toggleMenu}>
                             <div className="menu">
@@ -244,7 +239,7 @@ const Navbar=()=>{
                         </div>
                     </div>
                 </Container>
-            </div>
+            </div> */} 
         </header>
     );
 }
