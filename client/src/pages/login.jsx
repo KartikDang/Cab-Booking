@@ -24,7 +24,7 @@ const Login = () => {
         }).then(res=>{
             console.log(res);
             if(res.status===200){
-                window.location.href = '/';
+                window.location.href = '/booking';
             }else{
                 alert('Invalid Credentials');
             }

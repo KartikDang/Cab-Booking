@@ -30,7 +30,7 @@ const Login = () => {
             body:JSON.stringify({email,password,Name,contact})
         }).then(res=>{
             if(res.ok){
-                window.location.href = '/';
+                window.location.href = '/login';
             }else{
                 console.log('Cannot Enter Data');
             }
