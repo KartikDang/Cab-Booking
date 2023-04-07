@@ -4,6 +4,7 @@ const app = express();
 import bodyparser from "body-parser";
 app.use(express.json());
 import cors from "cors";
+import { v4 as uuidv4 } from 'uuid';
 
 app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
@@ -62,6 +63,27 @@ app.post("/login",(req,res)=>{
             }
         }
     })
+})
+
+app.post("/register",(req,res)=>{
+    const id = uuidv4();
+    const name = req.body.name;
+    const email = req.body.email;
+    const password = req.body.password;
+    const phone = req.body.contact;
+
+    const q = "INSERT INTO user (user_id,Name,Email,Password) VALUES (?,?,?,?)";
+
+    db.query(q,[id,name,email,password],(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send('Error in database');
+        }else{
+            console.log("Inserted Successfully");
+            res.status(200);
+        }
+    })
+
 })
 
 
