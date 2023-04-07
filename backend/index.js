@@ -2,9 +2,12 @@ import express from "express";
 import mysql from "mysql";
 const app = express();
 import bodyparser from "body-parser";
+app.use(express.json());
+import cors from "cors";
 
 app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
+app.use(cors());
 
 const db = mysql.createConnection({
     host: "localhost",
@@ -30,8 +33,7 @@ app.post("/login",(req,res)=>{
 
     const email = req.body.email;
     const password = req.body.password;
-
-    console.log(email,password);
+    console.log(req.body);
     const q = "SELECT * from user where email = ?";
 
     db.query(q,[email],(err,result)=>{

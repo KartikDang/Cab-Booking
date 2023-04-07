@@ -2,14 +2,54 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import "./login.css";
+import axios from 'axios';
 
 const Login = () => {
 
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
 
-    function handleSubmit(){
+    async function handleSubmit(e){
+        console.log({email,password});
+        e.preventDefault();
 
+        await fetch('http://localhost:8080/login',{
+            mode:'cors',
+            method: 'POST',
+            headers:{
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({email,password})
+        }).then(res=>{
+            if(res.ok){
+                window.location.href = '/';
+            }else{
+                console.log('Invalid Credentials');
+            }
+        })
+        .catch(err=>{
+            console.log(err);
+            console.log('Unexpected Error Occured');
+        })
+
+
+        // await axios({
+        //     method: 'post',
+        //     url: 'http://localhost:8080/login',
+        //     withCredentials: false,
+        //     headers: {
+        //         'Access-Control-Allow-Origin': '*',
+        //         'Content-Type': 'application/json',
+        //     },
+        //     data: {
+        //         email: email,
+        //         password: password
+        //     }
+        // })
+        // .then(res=>{
+        //     console.log(res);
+        // })
     }
 
     return (
