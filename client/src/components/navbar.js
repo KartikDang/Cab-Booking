@@ -130,7 +130,7 @@ const Navbar=()=>{
             <div className="header__top">
                 <Container>
                     <Row>
-                        <Col lg="6" md="6" sm="6">
+                        <Col lg="6" md="6" sm="6" className='hello'>
                             <div className="header__top__left">
                                 <span>Need Help?</span>
                                 <span className="header__top__help">

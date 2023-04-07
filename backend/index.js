@@ -34,7 +34,7 @@ app.post("/login",(req,res)=>{
 
     const email = req.body.email;
     const password = req.body.password;
-    console.log(req.body);
+    // console.log(req.body);
     const q = "SELECT * from user where email = ?";
 
     db.query(q,[email],(err,result)=>{
@@ -56,10 +56,11 @@ app.post("/login",(req,res)=>{
             // res.json(result);
 
             // res.send(result[0].Password);
-            if(result[0].Password === password){
-                res.send("Login Successful");
+            console.log(result[0].Password);
+            if(result[0].Password == password){
+                res.status(200).send("Login Successful");
             }else{
-                res.send("Wrong Password");
+                res.status(300).send("Wrong Password");
             }
         }
     })
@@ -67,7 +68,7 @@ app.post("/login",(req,res)=>{
 
 app.post("/register",(req,res)=>{
     const id = uuidv4();
-    const name = req.body.name;
+    const name = req.body.Name;
     const email = req.body.email;
     const password = req.body.password;
     const phone = req.body.contact;
@@ -80,7 +81,7 @@ app.post("/register",(req,res)=>{
             res.status(500).send('Error in database');
         }else{
             console.log("Inserted Successfully");
-            res.status(200);
+            res.status(200).send("Registration Complete");
         }
     })
 

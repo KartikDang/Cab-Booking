@@ -3,11 +3,16 @@
     background: black;
     color: #fff;
   }
-  
+
+  .hello{
+    justify-content: center;
+  }
+ 
   .header__top__left {
     display: flex;
     align-items: center;
     column-gap: 1rem;
+    align-content: center;
   }
   
   .header__top__left span {

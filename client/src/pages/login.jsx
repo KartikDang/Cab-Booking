@@ -22,15 +22,16 @@ const Login = () => {
             },
             body:JSON.stringify({email,password})
         }).then(res=>{
-            if(res.ok){
+            console.log(res);
+            if(res.status===200){
                 window.location.href = '/';
             }else{
-                console.log('Invalid Credentials');
+                alert('Invalid Credentials');
             }
         })
         .catch(err=>{
             console.log(err);
-            console.log('Unexpected Error Occured');
+            alert('Unexpected Error Occured');
         })
 
 
