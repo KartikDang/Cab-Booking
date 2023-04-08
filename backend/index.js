@@ -14,7 +14,7 @@ const db = mysql.createConnection({
     host: "localhost",
     user:"root",
     password:"admin",
-    database:"cabbooking",
+    database:"cabdb",
 });
 
 
@@ -88,8 +88,47 @@ app.post("/registerUser",(req,res)=>{
 })
 
 app.post("/registerDriver",(req,res)=>{
-    const id = uuidv4();
-    const name = req.body.
+    const driver_id = uuidv4();
+    const cab_id = uuidv4();
+    const name = req.body.Name;
+    const email = req.body.email;
+    const password = req.body.password;
+    const contact = req.body.contact;
+    const model = req.body.Make;
+    const type = req.body.Type;
+    const Reg_No = req.body.RegNo;
+    const license_no = req.body.LicNo;
+
+    const driver_q = "INSER INTO DRIVER (driver_id,email,license_no,password,name,contact,cab_id) VALUES (?,?,?,?,?,?,?)";
+    const cab_q = "INSERT INTO CAB (cab_id,type,model,Reg_No) VALUES (?,?,?,?)";
+
+    let flagDriver = 0;
+    let flagCab = 0;
+    db.query(driver_q,[driver_id,email,license_no,password,name,contact,cab_id],(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send('Error in database');
+        }else{
+            console.log("Inserted Successfully into Driver Table");
+            flagDriver = 1;
+        }
+    })
+
+    db.query(cab_q,[cab_id,type,model,Reg_No],(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send('Error in database');
+        }else{
+            console.log("Inserted Successfully into Cab Table");
+            flagCab = 1;
+        }
+    })
+
+    if(flagDriver === 1 && flagCab === 1){
+        res.status(200).send("Registration Complete");
+    }else{
+        res.status(300).send("Registration Failed");
+    }
 })
 
 

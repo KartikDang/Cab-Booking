@@ -13,7 +13,7 @@ export const RegisterDriver = () => {
     const [Name, setName] = React.useState("");
     const [contact, setContact] = React.useState("");
     const [confirmPass, setConfirmPass] = React.useState("");
-
+    const [LicNo, setLicNo] = React.useState("");
     const [make, setMake] = React.useState();
     const [RegNo, setRegNo] = React.useState();
     const [Type,setType] = React.useState();
@@ -125,6 +125,15 @@ export const RegisterDriver = () => {
                                         className="form-control mt-1"
                                         placeholder="Enter email"
                                         onChange={(e) => { setEmail(e.target.value) }}
+                                    />
+                                </div>
+                                <div className="form-group mt-3">
+                                    <label>License Number</label>
+                                    <input
+                                        type="email"
+                                        className="form-control mt-1"
+                                        placeholder="License Number"
+                                        onChange={(e) => { setLicNo(e.target.value) }}
                                     />
                                 </div>
                                 <div className="form-group mt-3">
