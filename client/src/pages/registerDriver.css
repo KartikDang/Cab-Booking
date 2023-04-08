@@ -17,6 +17,7 @@
   
 
   .partDivided{
+    /* margin-top:2%; */
     display:flex;
     width:100%;
     flex-direction: row;
@@ -41,5 +42,5 @@
     align-items: center;
     justify-content: center;
     margin: auto;
-    margin:3% 40%;
+    margin:1% 40%;
   }
