@@ -16,24 +16,40 @@ export const RegisterDriver = () => {
     const [LicNo, setLicNo] = React.useState("");
     const [make, setMake] = React.useState();
     const [RegNo, setRegNo] = React.useState();
-    const [Type,setType] = React.useState();
+    const [Type, setType] = React.useState();
 
 
     async function handleSubmit(e) {
-        console.log({ email, password, Name, contact,make,RegNo,Type });
+        console.log({ email, password, Name, contact, make, RegNo, Type });
         e.preventDefault();
 
-        if(email==="" || password==="" || Name==="" || contact==="" || make==="" || RegNo==="" || Type===""){
+        if (email === "" || password === "" || Name === "" || contact === "" || make === "" || RegNo === "" || Type === "") {
             alert("Please fill all the fields");
         }
-        
+
         if (confirmPass !== password) {
             alert("Password and Confirm Password do not match");
         }
 
-        if(Type!="Micro"&&Type!="Mini"&&Type!="Prime"&&Type!="SUV"){
+        if (Type != "Micro" && Type != "Mini" && Type != "Prime" && Type != "SUV") {
             alert("Please select a valid car type");
         }
+
+        await fetch('http://localhost:8080/registerDriver', {
+            mode: 'cors',
+            method: 'POST',
+            headers: {
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password, Name, contact, make, RegNo, Type })
+        }).then(res => {
+            if (res.ok) {
+                window.location.href = '/login';
+            } else {
+                console.log('Cannot Enter Data');
+            }
+        })
 
         // await fetch('http://localhost:8080/registerUser', {
         //     mode: 'cors',

@@ -34,7 +34,7 @@ app.post("/loginUser",(req,res)=>{
 
     const email = req.body.email;
     const password = req.body.password;
-    // console.log(req.body);
+    console.log(req.body);
     const q = "SELECT * from user where email = ?";
 
     db.query(q,[email],(err,result)=>{
@@ -73,9 +73,9 @@ app.post("/registerUser",(req,res)=>{
     const password = req.body.password;
     const phone = req.body.contact;
 
-    const q = "INSERT INTO user (user_id,Name,Email,Password) VALUES (?,?,?,?)";
+    const q = "INSERT INTO user (user_id,Name,Password,email,Contact) VALUES (?,?,?,?,?)";
 
-    db.query(q,[id,name,email,password],(err,result)=>{
+    db.query(q,[id,name,password,email,phone],(err,result)=>{
         if(err){
             console.log(err);
             res.status(500).send('Error in database');
