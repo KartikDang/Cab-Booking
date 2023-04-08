@@ -32,6 +32,9 @@
     background-color: white;
   }
 
+  .part{
+    width:380px;
+  }
   .registerSubmitBtn{
     width:20%;
     text-align: center;

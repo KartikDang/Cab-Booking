@@ -23,8 +23,16 @@ export const RegisterDriver = () => {
         console.log({ email, password, Name, contact,make,RegNo,Type });
         e.preventDefault();
 
+        if(email==="" || password==="" || Name==="" || contact==="" || make==="" || RegNo==="" || Type===""){
+            alert("Please fill all the fields");
+        }
+        
         if (confirmPass !== password) {
             alert("Password and Confirm Password do not match");
+        }
+
+        if(Type!="Micro"&&Type!="Mini"&&Type!="Prime"&&Type!="SUV"){
+            alert("Please select a valid car type");
         }
 
         // await fetch('http://localhost:8080/registerUser', {
@@ -160,14 +168,14 @@ export const RegisterDriver = () => {
                                     <input
                                         type="text"
                                         className="form-control mt-1"
-                                        placeholder="Contact Number"
+                                        placeholder="Registration Number"
                                         onChange={(e) => { setRegNo(e.target.value) }}
                                     />
                                 </div>
                                 <div className="form-group mt-3">
                                     {/* <label>Type</label> */}
                                     <label>Type</label>
-                                    <label>(Micro/Prime/Sedan/XL)</label>
+                                    <label>(Micro/Mini/Prime/SUV)</label>
                                     <input
                                         type="text"
                                         className="form-control mt-1"
