@@ -14,33 +14,38 @@ export const RegisterDriver = () => {
     const [contact, setContact] = React.useState("");
     const [confirmPass, setConfirmPass] = React.useState("");
 
+    const [make, setMake] = React.useState();
+    const [RegNo, setRegNo] = React.useState();
+    const [Type,setType] = React.useState();
+
+
     async function handleSubmit(e) {
-        console.log({ email, password, Name, contact });
+        console.log({ email, password, Name, contact,make,RegNo,Type });
         e.preventDefault();
 
         if (confirmPass !== password) {
             alert("Password and Confirm Password do not match");
         }
 
-        await fetch('http://localhost:8080/registerUser', {
-            mode: 'cors',
-            method: 'POST',
-            headers: {
-                // 'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password, Name, contact })
-        }).then(res => {
-            if (res.ok) {
-                window.location.href = '/login';
-            } else {
-                console.log('Cannot Enter Data');
-            }
-        })
-            .catch(err => {
-                console.log(err);
-                console.log('Unexpected Error Occured');
-            })
+        // await fetch('http://localhost:8080/registerUser', {
+        //     mode: 'cors',
+        //     method: 'POST',
+        //     headers: {
+        //         // 'Accept': 'application/json',
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({ email, password, Name, contact })
+        // }).then(res => {
+        //     if (res.ok) {
+        //         window.location.href = '/login';
+        //     } else {
+        //         console.log('Cannot Enter Data');
+        //     }
+        // })
+        //     .catch(err => {
+        //         console.log(err);
+        //         console.log('Unexpected Error Occured');
+        //     })
 
 
         // await axios({
@@ -75,8 +80,8 @@ export const RegisterDriver = () => {
                 </div>
             </nav>
 
-            <div className="Auth -form-container">
-                <form className="Auth -form">
+            <div className="Auth-form-container">
+                <form className="Auth-form driverRegister">
 
 
                     <div className="partDivided">
@@ -147,7 +152,7 @@ export const RegisterDriver = () => {
                                         type="text"
                                         className="form-control mt-1"
                                         placeholder="Make and Model"
-                                        onChange={(e) => { setName(e.target.value) }}
+                                        onChange={(e) => { setMake(e.target.value) }}
                                     />
                                 </div>
                                 <div className="form-group mt-3">
@@ -156,13 +161,20 @@ export const RegisterDriver = () => {
                                         type="text"
                                         className="form-control mt-1"
                                         placeholder="Contact Number"
-                                        onChange={(e) => { setContact(e.target.value) }}
+                                        onChange={(e) => { setRegNo(e.target.value) }}
                                     />
                                 </div>
                                 <div className="form-group mt-3">
                                     {/* <label>Type</label> */}
-
-                                    <BasicButtonExample />
+                                    <label>Type</label>
+                                    <label>(Micro/Prime/Sedan/XL)</label>
+                                    <input
+                                        type="text"
+                                        className="form-control mt-1"
+                                        placeholder="Type"
+                                        onChange={(e) => { setType(e.target.value) }}
+                                    />
+                                    {/* <BasicButtonExample /> */}
                                     {/* <input
                                     type="dr"
                                     className="form-control mt-1"
@@ -196,7 +208,7 @@ export const RegisterDriver = () => {
 
                     </div>
                     <div className="d-grid gap-2 mt-3">
-                        <button type="submit" className="btn btn-primary submitbtn" onClick={handleSubmit}>
+                        <button type="submit" className="btn btn-primary submitbtn registerSubmitBtn" onClick={handleSubmit}>
                             Submit
                         </button>
                     </div>

@@ -23,7 +23,7 @@
     justify-content: space-evenly;
   }
 
-  .-form{
+  .driverRegister{
     width: 100%;
     /* box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px; */
     padding-top: 60px;
@@ -32,7 +32,7 @@
     background-color: white;
   }
 
-  .submitbtn{
+  .registerSubmitBtn{
     width:20%;
     text-align: center;
     align-items: center;
