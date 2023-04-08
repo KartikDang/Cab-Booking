@@ -125,14 +125,49 @@ app.post("/registerDriver", (req, res) => {
         }
     })
 
-    console.log({flagCab, flagDriver})
+    console.log({ flagCab, flagDriver })
 
     res.status(200).send("Registration Complete");
 })
 
 
+app.post('/loginDriver', (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    console.log(req.body);
+    const q = "SELECT * from driver where email = ?";
 
+    db.query(q, [email], (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('Error in database');
+        } else if (result.length === 0) {
+            res.status(400).send('Email not found');
+        } else {
+            var flag = 0;
+            const jsonData = JSON.stringify(result);
+            // jsonData.map((e)=>{
+            //     console.log(e.password);
+            // })
 
-app.listen(8080, () => {
-    console.log("Server is running on port 8080");
+            // if(flag===0){
+            //     res.send("Wrong Password");
+            // }
+            // res.json(result);
+
+            // res.send(result[0].Password);
+            console.log(result[0].password);
+            if (result[0].password == password) {
+                res.status(200).send("Login Successful");
+            } else {
+                res.status(300).send("Wrong Password");
+            }
+        }
+    })
 })
+
+
+
+    app.listen(8080, () => {
+        console.log("Server is running on port 8080");
+    })

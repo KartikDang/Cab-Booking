@@ -13,7 +13,7 @@ export const LoginDriver = () => {
         console.log({email,password});
         e.preventDefault();
 
-        await fetch('http://localhost:8080/login',{
+        await fetch('http://localhost:8080/loginDriver',{
             mode:'cors',
             method: 'POST',
             headers:{
