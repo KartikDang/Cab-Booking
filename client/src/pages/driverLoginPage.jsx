@@ -4,7 +4,7 @@ import { useState } from 'react';
 import "./login.css";
 import axios from 'axios';
 
-const Login = () => {
+export const LoginDriver = () => {
 
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
@@ -70,7 +70,7 @@ const Login = () => {
             <div className="Auth-form-container">
                 <form className="Auth-form">
                     <div className="Auth-form-content">
-                        <h3 className="Auth-form-title">Sign In</h3>
+                        <h3 className="Auth-form-title">Login Driver</h3>
                         <div className="form-group mt-3">
                             <label>Email address</label>
                             <input
@@ -103,5 +103,3 @@ const Login = () => {
         </div>
     );
 }
-
-export default Login;

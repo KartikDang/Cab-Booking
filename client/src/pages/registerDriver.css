@@ -1,0 +1,42 @@
+
+
+
+.navbar{
+    background: black;
+    color:white;
+}
+
+.nav-login{
+    background: black;
+    color:white;
+}
+
+.App {
+    background-color: white;
+  }
+  
+
+  .partDivided{
+    display:flex;
+    width:100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  .-form{
+    width: 100%;
+    /* box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px; */
+    padding-top: 60px;
+    padding-bottom: 20px;
+    border-radius: 0px;
+    background-color: white;
+  }
+
+  .submitbtn{
+    width:20%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin:3% 40%;
+  }

@@ -30,7 +30,7 @@ app.get("/",(req,res)=>{
     })
 })
 
-app.post("/login",(req,res)=>{
+app.post("/loginUser",(req,res)=>{
 
     const email = req.body.email;
     const password = req.body.password;
@@ -66,7 +66,7 @@ app.post("/login",(req,res)=>{
     })
 })
 
-app.post("/register",(req,res)=>{
+app.post("/registerUser",(req,res)=>{
     const id = uuidv4();
     const name = req.body.Name;
     const email = req.body.email;
@@ -86,6 +86,13 @@ app.post("/register",(req,res)=>{
     })
 
 })
+
+app.post("/registerDriver",(req,res)=>{
+    const id = uuidv4();
+    const name = req.body.
+})
+
+
 
 
 app.listen(8080,()=>{

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import "./login.css";
 import axios from 'axios';
 
-const Login = () => {
+const LoginUser = () => {
 
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
@@ -13,7 +13,7 @@ const Login = () => {
         console.log({email,password});
         e.preventDefault();
 
-        await fetch('http://localhost:8080/login',{
+        await fetch('http://localhost:8080/loginUser',{
             mode:'cors',
             method: 'POST',
             headers:{
@@ -104,4 +104,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default LoginUser;

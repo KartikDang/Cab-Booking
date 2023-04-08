@@ -4,7 +4,7 @@ import { useState } from 'react';
 import "./login.css";
 import axios from 'axios';
 
-const Login = () => {
+const RegisterUser = () => {
 
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
@@ -20,7 +20,7 @@ const Login = () => {
             alert("Password and Confirm Password do not match");
         }
 
-        await fetch('http://localhost:8080/register',{
+        await fetch('http://localhost:8080/registerUser',{
             mode:'cors',
             method: 'POST',
             headers:{
@@ -76,7 +76,7 @@ const Login = () => {
             <div className="Auth-form-container">
                 <form className="Auth-form">
                     <div className="Auth-form-content">
-                        <h3 className="Auth-form-title">Register</h3>
+                        <h3 className="Auth-form-title">Register User</h3>
                         <div className="form-group mt-3">
                             <label>Name</label>
                             <input
@@ -137,4 +137,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default RegisterUser;
