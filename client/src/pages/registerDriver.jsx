@@ -42,12 +42,13 @@ export const RegisterDriver = () => {
                 // 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email, password, Name, contact, make, RegNo, Type })
+            body: JSON.stringify({ email, password, Name, contact, make, RegNo, Type, LicNo })
         }).then(res => {
-            if (res.ok) {
-                window.location.href = '/login';
+            console.log(res);
+            if(res.ok){
+                window.location.href = '/loginDriver';
             } else {
-                console.log('Cannot Enter Data');
+                alert('Could not register driver. Please try again.')
             }
         })
 
