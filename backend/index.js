@@ -59,12 +59,50 @@ app.post("/loginUser", (req, res) => {
             console.log(result[0].Password);
             if (result[0].Password == password) {
                 res.status(200).send("Login Successful");
+                console.log(result[0].user_id);
+                const q = "INSERT INTO user_session (user_id) VALUES (?)";
+                db.query(q, [result[0].user_id], (err, result) => {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).send('Error in database');
+                    } else {
+                        console.log("Inserted Successfully to current Session Table");
+                    }
+                });
+
             } else {
                 res.status(300).send("Wrong Password");
             }
         }
     })
 })
+
+
+app.get("/retrieveCurrentUser", (req, res) => {
+    const q = "SELECT * FROM user_session";
+    var user_id;
+    db.query(q, (err, result) => {
+        if (err) {
+            res.json(err);
+        } else {
+            // res.json(result);
+            const q2 = "SELECT * FROM user where user_id = ?";
+            db.query(q2, [result[0].user_id], (err, result) => {
+                if (err) {
+                    console.log(err);
+                    res.json(err);
+                } else {
+                    console.log(result);
+                    res.json(result);
+                }
+            });
+        }
+    });
+    // console.log(user_id);
+
+
+})
+
 
 app.post("/registerUser", (req, res) => {
     const id = uuidv4();
@@ -159,6 +197,8 @@ app.post('/loginDriver', (req, res) => {
             console.log(result[0].password);
             if (result[0].password == password) {
                 res.status(200).send("Login Successful");
+
+                console.log(result);
             } else {
                 res.status(300).send("Wrong Password");
             }
@@ -168,6 +208,6 @@ app.post('/loginDriver', (req, res) => {
 
 
 
-    app.listen(8080, () => {
-        console.log("Server is running on port 8080");
-    })
+app.listen(8080, () => {
+    console.log("Server is running on port 8080");
+})
