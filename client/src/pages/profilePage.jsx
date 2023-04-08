@@ -29,9 +29,11 @@ export const ProfilePage = () => {
         }).then(res => {
             res.json().then(data => {
                 console.log(data[0]);
-                setName(data[0].name);
+                setName(data[0].Name);
                 setisLoaded(true);
-                // console.log(name);
+                setPassword(data[0].Password);
+                setContact(data[0].Contact);
+                setEmail(data[0].email);
             })
             if (res.status === 200) {
             } else {
@@ -96,6 +98,18 @@ export const ProfilePage = () => {
                         className="form-control mt-1"
                         placeholder="Contact Number"
                         onChange={(e) => { setContact(e.target.value) }}
+                        value = {contact}
+                    />
+                </div>
+                <div className="form-group mt-3">
+                    <label>Email ID</label>
+                    <input
+                        type="text"
+                        className="form-control mt-1"
+                        placeholder="Email ID"
+                        onChange={(e) => { setContact(e.target.value) }}
+                        value = {email}
+                        readOnly
                     />
                 </div>
                 <div className="form-group mt-3">
@@ -105,6 +119,7 @@ export const ProfilePage = () => {
                         className="form-control mt-1"
                         placeholder="Password"
                         onChange={(e) => { setPassword(e.target.value) }}
+                        value = {password}
                     />
                 </div>
                 <div className="d-grid gap-2 mt-3">
