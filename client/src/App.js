@@ -7,6 +7,7 @@ import { LoginOption } from './pages/loginOption';
 import { RegisterOption } from './pages/registerOption';
 import {LoginDriver} from './pages/driverLoginPage';
 import {RegisterDriver} from "./pages/registerDriver";
+import {ProfilePage} from "./pages/profilePage";
 function App() {
   return (
     <BrowserRouter>
@@ -20,6 +21,7 @@ function App() {
         <Route path = '/loginUser' element = {<LoginUser/>} />
         <Route path='/registerDriver' element ={<RegisterDriver />}/>
         <Route path="/loginDriver" element = {<LoginDriver/>}/>
+        <Route path="/profile" element = {<ProfilePage/>}/>
       </Routes>
     </BrowserRouter>
   );
