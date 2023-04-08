@@ -1,0 +1,24 @@
+.btn-container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 300px;
+    height: 70vh;
+}
+
+.submit-btn{
+    width:380px;
+}
+
+.text{
+
+    color:white;
+    text-decoration: none;
+}
+
+.text:hover{
+    color:black;
+    text-decoration: none;
+}
