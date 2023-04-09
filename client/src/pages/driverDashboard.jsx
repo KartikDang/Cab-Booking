@@ -8,7 +8,7 @@ export const DriverDashboard = () => {
     const [make, setMake] = React.useState('');
     const [type, setType] = React.useState('');
     const [cab_id, setCab_id] = React.useState('');
-    const [status, setStatus] = React.useState("Not Available");
+    const [status, setStatus] = React.useState("");
     const [isLoaded, setIsLoaded] = React.useState(false);
 
     async function handleLoad(e) {
@@ -41,7 +41,7 @@ export const DriverDashboard = () => {
                         console.log(data[0]);
                         setMake(data[0].model);
                         setType(data[0].type);
-                        // setStatus(data[0].status);
+                        setStatus(data[0].status);
                     })
                 })
 
@@ -52,7 +52,7 @@ export const DriverDashboard = () => {
     }
 
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault();
 
         // setStatus("Available");
@@ -61,6 +61,25 @@ export const DriverDashboard = () => {
         }else{
             setStatus("Available");
         }
+
+        await fetch("http://localhost:8080/updateStatus", {
+            mode: 'cors',
+            method: 'POST',
+            headers: {
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ cab_id, status })
+        }).then(res => {
+            res.json().then(data => {
+                console.log(data[0]);
+                // setMake(data[0].model);
+                // setType(data[0].type);
+                // setStatus(data[0].status);
+            })
+
+        })
+        
     }
 
     if (!isLoaded) {

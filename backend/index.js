@@ -309,7 +309,7 @@ app.post("/retrieveCab",(req,res)=>{
     })
 })
 
-app.use('/updateStatus', (req, res) => {
+app.post('/updateStatus', (req, res) => {
     const cab_id = req.body.cab_id;
     const status = req.body.status;
     console.log({ cab_id, status });
