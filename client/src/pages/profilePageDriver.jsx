@@ -15,12 +15,12 @@ export const ProfilePageDriver = () => {
     const [contact, setContact] = React.useState("");
     // const [confirmPass, setConfirmPass] = React.useState("");
     const [isLoaded, setisLoaded] = React.useState(0);
-    const [user_id, setuser_id] = React.useState("");
+    const [driver_id, setdriver_id] = React.useState("");
     // console.log(name);
     async function handleLoad() {
         // e.preventDefault();
 
-        await fetch("http://localhost:8080/retrieveCurrentUser", {
+        await fetch("http://localhost:8080/retrieveCurrentDriver", {
             mode: 'cors',
             method: 'GET',
             headers: {
@@ -31,12 +31,12 @@ export const ProfilePageDriver = () => {
         }).then(res => {
             res.json().then(data => {
                 console.log(data[0]);
-                setName(data[0].Name);
+                setName(data[0].name);
                 setisLoaded(true);
-                setPassword(data[0].Password);
-                setContact(data[0].Contact);
+                setPassword(data[0].password);
+                setContact(data[0].contact);
                 setEmail(data[0].email);
-                setuser_id(data[0].user_id);
+                setdriver_id(data[0].driver_id);
             })
             if (res.status === 200) {
             } else {
@@ -49,20 +49,20 @@ export const ProfilePageDriver = () => {
         e.preventDefault();
 
 
-        console.log({ email, password, Name, contact,user_id });
+        console.log({ email, password, Name, contact, driver_id });
 
         
-        await fetch('http://localhost:8080/updateUser', {
+        await fetch('http://localhost:8080/updateDriver', {
             mode: 'cors',
             method: 'POST',
             headers: {
                 // 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email, password, Name, contact, user_id })
+            body: JSON.stringify({ email, password, Name, contact, driver_id })
         }).then(res => {
             if (res.ok) {
-                window.location.href = '/profile';
+                window.location.href = '/profileDriver';
             } else {
                 console.log('Cannot Enter Data');
             }

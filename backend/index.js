@@ -238,6 +238,12 @@ app.post('/loginDriver', (req, res) => {
     })
 })
 
+// app.get("/retrieveCurrentDriver", (req, res) => {
+//     const q = "SELECT * FROM driver_session";
+//     var driver_id;
+
+
+
 
 app.post("/updateUser", (req, res) => {
     const id = req.body.user_id;
@@ -251,6 +257,31 @@ app.post("/updateUser", (req, res) => {
 
 
     db.query(q, [name, password, email, phone, id], (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('Error in database');
+        } else {
+            console.log("Updated Successfully");
+            console.log(result);
+            res.status(200).send("Update Complete");
+        }
+    })
+})
+
+app.post("/updateDriver", (req, res) => {
+
+    const driver_id = req.body.driver_id;
+    const name = req.body.Name;
+    const email = req.body.email;
+    const password = req.body.password;
+    const contact = req.body.contact;
+
+    console.log({ driver_id, name, email, password, contact });
+
+    const q = "UPDATE driver SET name = ?, password = ?,email = ?,contact = ? WHERE driver_id = ?";
+
+    db.query(q, [name, password, email, contact, driver_id], (err, result) => {
+
         if (err) {
             console.log(err);
             res.status(500).send('Error in database');
