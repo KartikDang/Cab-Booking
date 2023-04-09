@@ -10,6 +10,7 @@ import { RegisterDriver } from "./pages/registerDriver";
 import { ProfilePageUser } from "./pages/profilePage";
 import { ProfilePageDriver } from './pages/profilePageDriver';
 import { DriverDashboard } from './pages/driverDashboard';
+import { AdminPage } from './pages/adminPage';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/profileUser" element={<ProfilePageUser />} />
         <Route path="/driverDashboard" element={<DriverDashboard />} />
         <Route path="/profileDriver" element={<ProfilePageDriver />} />
+        <Route path="/admin" element={<AdminPage/>} />
       </Routes>
     </BrowserRouter>
   );
