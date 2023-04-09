@@ -293,6 +293,21 @@ app.post("/updateDriver", (req, res) => {
     })
 })
 
+app.post("/retrieveCab",(req,res)=>{
+    const cab_id = req.body.cab_id;
+    console.log(cab_id);
+    const q = "SELECT * FROM cab WHERE cab_id = ?";
+
+    db.query(q,[cab_id],(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send('Error in database');
+        }else{
+            console.log(result);
+            res.status(200).send(result);
+        }
+    })
+})
 
 app.listen(8080, () => {
     console.log("Server is running on port 8080");
