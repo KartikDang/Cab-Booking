@@ -52,6 +52,17 @@ export const DriverDashboard = () => {
     }
 
 
+    function handleSubmit(e){
+        e.preventDefault();
+
+        // setStatus("Available");
+        if(status=="Available"){
+            setStatus("Not Available");
+        }else{
+            setStatus("Available");
+        }
+    }
+
     if (!isLoaded) {
         handleLoad();
         return (
@@ -104,7 +115,7 @@ export const DriverDashboard = () => {
                             <td>{type}</td>
                             <td>{status}</td>
                             <td>
-                                <button type="button" class="btn btn-success" onClick={handleSubmit}>Make Available</button>
+                                <button type="button" class="btn btn-success" onClick={handleSubmit}>Change Status</button>
                             </td>
                         </tr>
                     </tbody>
