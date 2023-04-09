@@ -5,6 +5,7 @@ import React from 'react';
 import { NavbarApp } from '../components/navbarApp';
 import { LightningLoader } from '../components/loader';
 import "./register.css";
+import "./profilePage.css"
 
 export const ProfilePage = () => {
     // const [name, setName] = React.useState("");
@@ -12,8 +13,9 @@ export const ProfilePage = () => {
     const [password, setPassword] = React.useState("");
     const [Name, setName] = React.useState("");
     const [contact, setContact] = React.useState("");
-    const [confirmPass, setConfirmPass] = React.useState("");
+    // const [confirmPass, setConfirmPass] = React.useState("");
     const [isLoaded, setisLoaded] = React.useState(0);
+    const [user_id, setuser_id] = React.useState("");
     // console.log(name);
     async function handleLoad() {
         // e.preventDefault();
@@ -34,10 +36,35 @@ export const ProfilePage = () => {
                 setPassword(data[0].Password);
                 setContact(data[0].Contact);
                 setEmail(data[0].email);
+                setuser_id(data[0].user_id);
             })
             if (res.status === 200) {
             } else {
                 alert('Login into an Account');
+            }
+        })
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+
+        console.log({ email, password, Name, contact,user_id });
+
+        
+        await fetch('http://localhost:8080/updateUser', {
+            mode: 'cors',
+            method: 'POST',
+            headers: {
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password, Name, contact, user_id })
+        }).then(res => {
+            if (res.ok) {
+                window.location.href = '/profile';
+            } else {
+                console.log('Cannot Enter Data');
             }
         })
     }
@@ -107,7 +134,7 @@ export const ProfilePage = () => {
                         type="text"
                         className="form-control mt-1"
                         placeholder="Email ID"
-                        onChange={(e) => { setContact(e.target.value) }}
+                        onChange={(e) => { setEmail(e.target.value) }}
                         value = {email}
                         readOnly
                     />
@@ -123,7 +150,7 @@ export const ProfilePage = () => {
                     />
                 </div>
                 <div className="d-grid gap-2 mt-3">
-                    <button type="submit" className="btn btn-primary submitbtn" >
+                    <button type="submit" className="btn btn-primary submitbtn" onClick={handleSubmit}>
                         Update Details
                     </button>
                 </div>

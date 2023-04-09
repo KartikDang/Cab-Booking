@@ -92,7 +92,7 @@ app.get("/retrieveCurrentUser", (req, res) => {
                     console.log(err);
                     res.json(err);
                 } else {
-                    console.log(result);
+                    // console.log(result);
                     res.json(result);
                 }
             });
@@ -206,6 +206,29 @@ app.post('/loginDriver', (req, res) => {
     })
 })
 
+
+app.post("/updateUser",(req,res)=>{
+    const id = req.body.user_id;
+    const name = req.body.Name;
+    const email = req.body.email;
+    const password = req.body.password;
+    const phone = req.body.contact;
+
+    console.log({id,name,email,password,phone});
+    const q = "UPDATE user SET Name = ?, Password = ?,email = ?,Contact = ? WHERE user_id = ?";
+    
+
+    db.query(q, [name,password,email,phone,id], (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('Error in database');
+        } else {
+            console.log("Updated Successfully");
+            console.log(result);
+            res.status(200).send("Update Complete");
+        }
+    })
+})
 
 
 app.listen(8080, () => {
