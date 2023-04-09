@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-const Drivers = () => {
+export const Drivers = () => {
     return (
         <div>
              {/* NAVBAR */}
@@ -19,4 +19,4 @@ const Drivers = () => {
     );
 }
 
-export default Drivers;
+// export default Drivers;

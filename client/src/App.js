@@ -11,6 +11,8 @@ import { ProfilePageUser } from "./pages/profilePage";
 import { ProfilePageDriver } from './pages/profilePageDriver';
 import { DriverDashboard } from './pages/driverDashboard';
 import { AdminPage } from './pages/adminPage';
+import { Customers } from './pages/customers';
+import { Drivers } from './pages/drivers';
 
 function App() {
   return (
@@ -28,7 +30,10 @@ function App() {
         <Route path="/profileUser" element={<ProfilePageUser />} />
         <Route path="/driverDashboard" element={<DriverDashboard />} />
         <Route path="/profileDriver" element={<ProfilePageDriver />} />
-        <Route path="/admin" element={<AdminPage/>} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/customers" element={<Customers />} />
+        <Route path="/drivers" element={<Drivers />} />
+
       </Routes>
     </BrowserRouter>
   );

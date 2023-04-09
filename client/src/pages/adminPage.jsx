@@ -24,7 +24,7 @@ export const AdminPage = () => {
 
             <div className="d-grid gap-2 mt-3 btn-container" >
                 <button type="submit" className="btn btn-primary submitbtn" >
-                    <Link to='/allCustomers'>
+                    <Link to='/customers'>
                         <div className="text">
                             Show All Customers
                         </div>
@@ -34,7 +34,7 @@ export const AdminPage = () => {
 
 
                 <button type="submit" className="btn btn-primary submitbtn" >
-                    <Link to='/allDrivers'>
+                    <Link to='/drivers'>
                         <div className="text">
                             Show All Drivers
                         </div>
