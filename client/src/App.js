@@ -9,6 +9,8 @@ import { LoginDriver } from './pages/driverLoginPage';
 import { RegisterDriver } from "./pages/registerDriver";
 import { ProfilePageUser } from "./pages/profilePage";
 import { ProfilePageDriver } from './pages/profilePageDriver';
+import { DriverDashboard } from './pages/driverDashboard';
+
 function App() {
   return (
     <BrowserRouter>
@@ -23,7 +25,8 @@ function App() {
         <Route path='/registerDriver' element={<RegisterDriver />} />
         <Route path="/loginDriver" element={<LoginDriver />} />
         <Route path="/profileUser" element={<ProfilePageUser />} />
-        <Route path = "/profileDriver" element = {<ProfilePageDriver />} />
+        <Route path="/driverDashboard" element={<DriverDashboard />} />
+        <Route path="/profileDriver" element={<ProfilePageDriver />} />
       </Routes>
     </BrowserRouter>
   );

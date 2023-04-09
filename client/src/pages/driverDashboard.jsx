@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import "./driverDashboard.css"
 
-export const NavbarApp = () => {
+export const DriverDashboard = () => {
     return (
         <div>
+
             {/* NAVBAR */}
+
             <nav class="navbar bg-body-tertiary">
                 <div class="container-fluid">
                     <div>
@@ -13,10 +16,18 @@ export const NavbarApp = () => {
                             <h3>Cab Service</h3>
                         </Link>
                     </div>
+
+                    <div className="profile">
+                        <Link to="/profileDriver" className='profile-icon'>
+                            <i class="ri-user-fill"></i>
+                        </Link>
+                    </div>
+
                 </div>
+
             </nav>
         </div>
     );
 }
 
-// export default NavbarApp;
+// export default SriverDashboard;
