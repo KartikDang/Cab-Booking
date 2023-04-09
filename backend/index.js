@@ -103,6 +103,28 @@ app.get("/retrieveCurrentUser", (req, res) => {
 
 })
 
+app.get("/retrieveCurrentDriver", (req, res) => {
+    const q = "SELECT * FROM driver_session";
+    var driver_id;
+
+    db.query(q, (err, result) => {
+        if (err) {
+            res.json(err);
+        } else {
+            // res.json(result);
+            const q2 = "SELECT * FROM driver where driver_id = ?";
+            db.query(q2, [result[0].driver_id], (err, result) => {
+                if (err) {
+                    console.log(err);
+                    res.json(err);
+                } else {
+                    // console.log(result);
+                    res.json(result);
+                }
+            });
+        }
+    });
+})
 
 app.post("/registerUser", (req, res) => {
     const id = uuidv4();
@@ -196,9 +218,19 @@ app.post('/loginDriver', (req, res) => {
             // res.send(result[0].Password);
             console.log(result[0].password);
             if (result[0].password == password) {
-                res.status(200).send("Login Successful");
+                const q2 = "INSERT INTO driver_session (driver_id) VALUES (?)";
+                db.query(q2, [result[0].driver_id], (err, result) => {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).send('Error in database');
+                    } else {
+                        console.log("Inserted Successfully");
+                        res.status(200).send("Login Successful");
+                    }
+                })
 
                 console.log(result);
+
             } else {
                 res.status(300).send("Wrong Password");
             }
@@ -207,18 +239,18 @@ app.post('/loginDriver', (req, res) => {
 })
 
 
-app.post("/updateUser",(req,res)=>{
+app.post("/updateUser", (req, res) => {
     const id = req.body.user_id;
     const name = req.body.Name;
     const email = req.body.email;
     const password = req.body.password;
     const phone = req.body.contact;
 
-    console.log({id,name,email,password,phone});
+    console.log({ id, name, email, password, phone });
     const q = "UPDATE user SET Name = ?, Password = ?,email = ?,Contact = ? WHERE user_id = ?";
-    
 
-    db.query(q, [name,password,email,phone,id], (err, result) => {
+
+    db.query(q, [name, password, email, phone, id], (err, result) => {
         if (err) {
             console.log(err);
             res.status(500).send('Error in database');
