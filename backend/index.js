@@ -341,6 +341,20 @@ app.get('/allcustomers', (req, res) => {
     })
 })
 
+app.get('/alldrivers', (req, res) => {
+    const q = "SELECT * FROM driver natural join cab";
+
+    db.query(q,(err,result)=>{
+        if(err){
+            res.status(500).send('Error in database');
+        }else{
+            console.log(result);
+            res.status(200).send(result);
+        }
+    })
+})  
+
+
 app.listen(8080, () => {
     console.log("Server is running on port 8080");
 })

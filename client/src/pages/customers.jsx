@@ -3,21 +3,21 @@ import { Link } from 'react-router-dom';
 import { LightningLoader } from '../components/loader';
 export const Customers = () => {
 
-    const [isLoaded,setIsLoaded] = React.useState(false);
-    const [res,setRes] = React.useState([]);
+    const [isLoaded, setIsLoaded] = React.useState(false);
+    const [res, setRes] = React.useState([]);
 
-    async function handleLoad(e){
-        
-        await fetch("http://localhost:8080/allcustomers",{
-            mode:'cors',
-            method:'GET',
-            headers:{
+    async function handleLoad(e) {
+
+        await fetch("http://localhost:8080/allcustomers", {
+            mode: 'cors',
+            method: 'GET',
+            headers: {
                 // 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             // body:JSON.stringify({email,password})
-        }).then(res=>{
-            res.json().then(data=>{
+        }).then(res => {
+            res.json().then(data => {
                 console.log(data);
                 setIsLoaded(true);
                 setRes(data);
@@ -29,10 +29,10 @@ export const Customers = () => {
     }
 
 
-    if(!isLoaded){
+    if (!isLoaded) {
         handleLoad();
-        return(
-            <div className = "loader">
+        return (
+            <div className="loader">
                 <LightningLoader />
             </div>
         )
@@ -52,9 +52,9 @@ export const Customers = () => {
                 </div>
             </nav>
 
-            
 
             <div className="table-div">
+                <h3 className="Auth-form-title" style={{ marinTop: "3%" }}>Customers</h3>
                 <table class="table">
                     <thead>
                         <tr>
@@ -73,23 +73,23 @@ export const Customers = () => {
                             <td></td>
                             <td>
                                 {/* <button type="button" class="btn btn-success">Change Status</button> */}
-                            {/* </td> */}
-                        {/* </tr> */} 
+                        {/* </td> */}
+                        {/* </tr> */}
 
-                        {res.map((e)=>{
-                            return(
+                        {res.map((e) => {
+                            return (
                                 <tr>
                                     {/* <th scope = "row"> */}
-                                        <td>
-                                            {e.Name}
-                                        </td>
-                                        <td>
-                                            {e.email}
-                                        </td>
-                                        <td>
-                                            {e.Contact}
-                                        </td>
-                                
+                                    <td>
+                                        {e.Name}
+                                    </td>
+                                    <td>
+                                        {e.email}
+                                    </td>
+                                    <td>
+                                        {e.Contact}
+                                    </td>
+
                                 </tr>
                             )
                         })}
