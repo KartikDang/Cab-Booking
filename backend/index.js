@@ -309,6 +309,25 @@ app.post("/retrieveCab",(req,res)=>{
     })
 })
 
+app.use('/updateStatus', (req, res) => {
+    const cab_id = req.body.cab_id;
+    const status = req.body.status;
+    console.log({ cab_id, status });
+
+    const q = "UPDATE cab SET status = ? WHERE cab_id = ?";
+
+    db.query(q, [status, cab_id], (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('Error in database');
+        } else {
+            console.log("Updated Successfully");
+            console.log(result);
+            res.status(200).send("Update Complete");
+        }
+    })
+})
+
 app.listen(8080, () => {
     console.log("Server is running on port 8080");
 })
