@@ -455,6 +455,22 @@ app.post('/retrieveCurrentRide',(req,res)=>{
     })
 })
 
+app.post('/deleteBooking',(req,res)=>{
+    const booking_id = req.body.Booking_id;
+
+    const q = "Delete from booking where Booking_id = ?";
+
+    db.query(q,[booking_id],(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send("Error in database");
+        }else{
+            console.log(result);
+            res.status(200).send("Cancelled Booking");
+        }
+    })
+})
+
 app.listen(8080, () => {
     console.log("Server is running on port 8080");
 })

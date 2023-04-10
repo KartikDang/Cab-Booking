@@ -16,6 +16,8 @@ const CurrentRide = (props) => {
     const [RegNo, setRegNo] = React.useState("");
     const [make, setMake] = React.useState("");
     const [cost, setCost] = React.useState();
+    const [Booking_id, setBooking_Id] = React.useState("");
+
     async function handleLoad(e) {
         const user = await fetch("http://localhost:8080/retrieveCurrentUser", {
             mode: 'cors',
@@ -57,6 +59,7 @@ const CurrentRide = (props) => {
                 setRegNo(data[0].Reg_No);
                 setMake(data[0].model);
                 setCost(data[0].estimatedcost);
+                setBooking_Id(data[0].Booking_id);
                 setIsLoaded(true);
                 return data[0];
             })
@@ -76,6 +79,26 @@ const CurrentRide = (props) => {
         )
     }
 
+
+    async function handleClick(e) {
+        e.preventDefault();
+
+        await fetch('http://localhost:8080/deleteBooking', {
+            mode: 'cors',
+            method: 'POST',
+            headers: {
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ Booking_id })
+        }).then(res=>{
+            if(res.status == 200){
+                window.location.href = '/booking'
+            }else{
+                alert('Error Cancelling Cab');
+            }
+        })
+    }
 
     return (
         <div>
