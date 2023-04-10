@@ -381,9 +381,9 @@ app.post('/bookCabUserRequest',(req,res)=>{
     const distance = req.body.distance;
     const estimatedCost = req.body.estimatedCost;
 
-    console.log({Booking_id,user_id,pickup_location,destination,status,distance,estimatedCost});
+    console.log({Booking_id,user_id,pickup,drop,status,distance,estimatedCost});
 
-    const q = "INSERT INTO booking (Booking_id,user_id,pickup,drop,status,distance,estimatedCost) VALUES (?,?,?,?,?,?,?)";
+    const q = "INSERT INTO booking (Booking_id,user_id,pickup_location,destination,status,distance,estimatedCost) VALUES (?,?,?,?,?,?,?)";
     db.query(q,[Booking_id,user_id,pickup,drop,status,distance,estimatedCost],(err,result)=>{
         if(err){
             console.log(err);
