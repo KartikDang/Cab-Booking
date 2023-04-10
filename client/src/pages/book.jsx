@@ -62,10 +62,10 @@ const Book = () => {
                 // 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body:JSON.stringify({user_id,pickup,drop,status,distance,estimatedCost})
+            body:JSON.stringify({user_id,pickup,drop,status,distance,estimatedCost,type})
         }).then(res=>{
             if(res.ok){
-                window.location.href = '/CurrentRide';
+                // window.location.href = '/CurrentRide';
             }else{
                 console.log('Cannot Enter Data');
             }

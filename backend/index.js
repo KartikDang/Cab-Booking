@@ -380,6 +380,7 @@ app.post('/bookCabUserRequest',(req,res)=>{
     const status = req.body.status;
     const distance = req.body.distance;
     const estimatedCost = req.body.estimatedCost;
+    const type = req.body.type;
 
     console.log({Booking_id,user_id,pickup,drop,status,distance,estimatedCost});
 
@@ -390,7 +391,19 @@ app.post('/bookCabUserRequest',(req,res)=>{
             res.status(500).send('Error in database');
         }else{
             console.log("Inserted Successfully");
-            res.status(200).send("Booking Successful");
+            // res.status(200).send("Booking Successful");
+        }
+    })
+
+    const q2 = "Select driver_id,name,contact,model,type from driver natural join cab where type = ? and status = 'available'";
+
+    db.query(q2,[type],(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send('Error in database');
+        }else{
+            console.log(result);
+            res.status(200).send(result);
         }
     })
     
