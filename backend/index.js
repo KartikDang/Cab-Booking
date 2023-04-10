@@ -532,6 +532,50 @@ app.post('/logoutDriver', (req, res) => {
     })
 })
 
+app.post('/retrievePastRides', (req, res) => {
+    const user_id = req.body.user_id;
+    const q = "Select driver.name,booking.estimatedcost,cab.model,booking.destination from (booking join driver on booking.driver_id = driver.driver_id) join cab on cab.cab_id = driver.cab_id  where user_id = ? and booking.status = 'Completed'";
+
+    db.query(q, [user_id], (err, result) => {
+        if(err){
+            console.log(err);
+            res.status(500).send('Error in Database');
+        }else{
+            console.log(result);
+            res.status(200).send(result);
+        }
+    })
+ })
+
+ app.post('/completeRide', (req, res) => {
+    const user_id = req.body.user_id;
+    const booking_id= req.body.Booking_id;
+    const cab_id = req.body.cab_id;
+    console.log({user_id, booking_id, cab_id});
+    const q = "Update booking set status = 'Completed' where Booking_id = ?";
+
+    db.query(q, [booking_id], (err, result) => {
+        // console.log(q);
+        if(err){
+            console.log(err);
+            res.status(500).send('Error in Database');
+        }else{
+            console.log(result);
+            const q2 = "Update cab set status = 'Available' where cab_id = ?";
+
+            db.query(q2, [cab_id], (err, result) => {
+                if(err){
+                    console.log(err);
+                    res.status(500).send('Error in Database');
+                }  else{
+                    console.log(result);
+                    res.status(200).send("Ride Completed");
+                }
+            })
+        }
+    })
+ })
+
 app.listen(8080, () => {
     console.log("Server is running on port 8080");
 })

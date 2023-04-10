@@ -6,14 +6,22 @@
   }
 
   .profile-icon{
-    color:white
+    color:white;
+    /* margin-right: 5%; */
   }
 
   .profile-icon:hover{
     color: #f9a826;
   }
 
-  
+  .pastRides{
+    margin-right: 2%;
+  }
+
+  .pastRides i{
+    font-size: larger;
+    cursor: pointer;  
+  }
 
   .table-div{
     width:40%;

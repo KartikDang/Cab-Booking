@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container, Row, Col } from "reactstrap";
 import { Link } from 'react-router-dom';
 import Map from './Maps';
 import "./book.css";
@@ -92,10 +93,31 @@ const Book = () => {
                         </Link>
                     </div>
 
+                    {/* 
+                    <Col lg="6" md="6" sm="6">
+                        <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
+                            <Link to="/login" className=" d-flex align-items-center gap-1">
+                                <i class="ri-login-circle-line"></i>
+                                <button type="button" class="btn btn-outline-secondary btn-out">Login</button>
+                            </Link>
+
+                            <Link to="/register" className=" d-flex align-items-center gap-1">
+                                <i class="ri-user-line"></i>
+                                <button type="button" class="btn btn-outline-light btn-out">Register</button>
+                            </Link>
+                        </div>
+                    </Col> */}
                     <div className="profile">
-                        <Link to="/profileUser" className='profile-icon'>
-                            <i class="ri-user-fill"></i>
-                        </Link>
+                        <div className="pastRides">
+                            <Link to='/pastRides' className='profile-icon'>
+                                <i class="ri-taxi-line"></i>
+                            </Link>
+                        </div>
+                        <div className="user">
+                            <Link to="/profileUser" className='profile-icon'>
+                                <i class="ri-user-fill"></i>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </nav>

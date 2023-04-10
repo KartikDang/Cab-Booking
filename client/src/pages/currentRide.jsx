@@ -103,6 +103,27 @@ const CurrentRide = (props) => {
         })
     }
 
+    async function handleComplete(e){
+        e.preventDefault();
+        // console.log({ Booking_id, cab_id });
+
+        await fetch('http://localhost:8080/completeRide', {
+            mode: 'cors',
+            method: 'POST',
+            headers: {
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ Booking_id, cab_id })
+        }).then(res=>{
+            if(res.status == 200){
+                window.location.href = '/booking'
+            }else{
+                alert('Error Completing Cab');
+            }
+        })
+    }
+
     return (
         <div>
             <nav class="navbar bg-body-tertiary">
@@ -206,6 +227,15 @@ const CurrentRide = (props) => {
                                     onClick={handleClick}
                                 >
                                     Cancel Cab
+                                </button>
+                            </div>
+                            <div className="d-grid gap-2 mt-3">
+                                <button type="submit" className="btn btn-success cancelbtn"
+                                    style={{ width: "100%", marginTop: "2%" }}
+                                    // onClick={handleSubmit}
+                                    onClick={handleComplete}
+                                >
+                                    Complete Ride
                                 </button>
                             </div>
                             {/* <hr />

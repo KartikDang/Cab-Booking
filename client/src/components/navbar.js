@@ -245,7 +245,7 @@ const Navbar=()=>{
                                     <i class="ri-search-line"></i>
                                 </span>
                             </div>
-                        </div>
+                        </d niv>
                     </div>
                 </Container>
             </div> */} 
