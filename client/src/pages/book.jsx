@@ -4,6 +4,9 @@ import Map from './Maps';
 import "./book.css";
 
 const Book = () => {
+
+    const [radioOption, setRadioOption] = React.useState("");
+    console.log(radioOption);
     return (
         <div>
 
@@ -53,32 +56,40 @@ const Book = () => {
                             </div>
 
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                                    <label class="form-check-label" for="inlineRadio1">Micro</label>
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Micro"
+                                    onChange={(e) => { setRadioOption(e.target.value) }}
+                                />
+                                <label class="form-check-label" for="inlineRadio1">Micro</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                                    <label class="form-check-label" for="inlineRadio2">Mini</label>
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Mini"
+                                    onChange={(e) => { setRadioOption(e.target.value) }}
+                                />
+                                <label class="form-check-label" for="inlineRadio2">Mini</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"  />
-                                    <label class="form-check-label" for="inlineRadio3">Prime</label>
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="Prime"
+                                    onChange={(e) => { setRadioOption(e.target.value) }}
+                                />
+                                <label class="form-check-label" for="inlineRadio3">Prime</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"  />
-                                    <label class="form-check-label" for="inlineRadio3">SUV</label>
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="SUV"
+                                    onChange={(e) => { setRadioOption(e.target.value) }}
+                                />
+                                <label class="form-check-label" for="inlineRadio3">SUV</label>
                             </div>
 
                             <div className="d-grid gap-2 mt-3">
                                 <button type="submit" className="btn btn-primary submitbtn"
                                 // onClick={handleSubmit}
                                 >
-                                    Submit
+                                    Book Cab
                                 </button>
                             </div>
-                            <p className="forgot-password text-right mt-2">
+                            {/* <p className="forgot-password text-right mt-2">
                                 Forgot password?
-                            </p>
+                            </p> */}
                         </div>
                     </form>
                 </div>
