@@ -395,7 +395,7 @@ app.post('/bookCabUserRequest',(req,res)=>{
         }
     })
 
-    const q2 = "Select driver_id,name,contact,model,type from driver natural join cab where type = ? and status = 'available'";
+    const q2 = "Select driver_id,name,contact,model,type,cab_id from driver natural join cab where type = ? and status = 'available'";
 
     db.query(q2,[type],(err,result)=>{
         if(err){
@@ -403,7 +403,36 @@ app.post('/bookCabUserRequest',(req,res)=>{
             res.status(500).send('Error in database');
         }else{
             console.log(result);
-            res.status(200).send(result);
+            // res.status(200).send(result);
+            
+                const driver_id = result[0].driver_id;
+                const cab_id = result[0].cab_id;
+                const q3 = "Update booking set driver_id = ?, status = 'Ongoing' where Booking_id = ?";
+
+                db.query(q3,[driver_id,Booking_id],(err,result)=>{
+                    if(err){
+                        console.log(err);
+                        res.status(500).send('Error in database');
+                    }else{
+                        console.log(result);
+                        // res.status(200).send("Booking Successful");
+                        const q4 = "Update cab set status = 'Not Available' where cab_id = ?";
+
+                        db.query(q4,[cab_id],(err,result)=>{
+                            if(err){
+                                console.log(err);
+                                res.status(500).send('Error in database');
+                            }else{
+                                console.log(result);
+                                console.log("Updated Successfully");
+                                res.status(200).send("Booking Successful");
+                            }
+                        })
+                    }
+                })
+
+    
+        
         }
     })
     

@@ -16,6 +16,7 @@ import { Customers } from './pages/customers';
 import { Drivers } from './pages/drivers';
 import Book from './pages/book';
 import Maps from './pages/Maps';
+import CurrentRide from './pages/currentRide';
 const BasicMap = React.lazy(() => import("./pages/Maps"));
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
         <Route path="/customers" element={<Customers />} />
         <Route path="/drivers" element={<Drivers />} />
         <Route path = '/basic' component = {BasicMap} />
+        <Route path = '/currentRide' element = {<CurrentRide />} />
       </Routes>
     </BrowserRouter>
   );

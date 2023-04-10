@@ -65,7 +65,7 @@ const Book = () => {
             body:JSON.stringify({user_id,pickup,drop,status,distance,estimatedCost,type})
         }).then(res=>{
             if(res.ok){
-                // window.location.href = '/CurrentRide';
+                window.location.href = '/CurrentRide';
             }else{
                 console.log('Cannot Enter Data');
             }
@@ -165,7 +165,7 @@ const Book = () => {
 
                 <div className="Map">
                     {/* <Map /> */}
-                    TEST
+                    MAP AREA
                 </div>
             </div>
         </div>
