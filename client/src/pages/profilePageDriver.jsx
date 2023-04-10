@@ -51,7 +51,7 @@ export const ProfilePageDriver = () => {
 
         console.log({ email, password, Name, contact, driver_id });
 
-        
+
         await fetch('http://localhost:8080/updateDriver', {
             mode: 'cors',
             method: 'POST',
@@ -95,6 +95,25 @@ export const ProfilePageDriver = () => {
 
     }
 
+    async function handleLogout(e) {
+        e.preventDefault();
+
+        await fetch('http://localhost:8080/logoutDriver', {
+            mode: 'cors',
+            method: 'POST',
+            headers: {
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ driver_id })
+        }).then(res => {
+            if (res.ok) {
+                window.location.href = '/';
+            } else {
+                console.log('Cannot Logout');
+            }
+        })
+    }
 
 
     return (
@@ -125,7 +144,7 @@ export const ProfilePageDriver = () => {
                         className="form-control mt-1"
                         placeholder="Contact Number"
                         onChange={(e) => { setContact(e.target.value) }}
-                        value = {contact}
+                        value={contact}
                     />
                 </div>
                 <div className="form-group mt-3">
@@ -135,7 +154,7 @@ export const ProfilePageDriver = () => {
                         className="form-control mt-1"
                         placeholder="Email ID"
                         onChange={(e) => { setEmail(e.target.value) }}
-                        value = {email}
+                        value={email}
                         readOnly
                     />
                 </div>
@@ -146,12 +165,18 @@ export const ProfilePageDriver = () => {
                         className="form-control mt-1"
                         placeholder="Password"
                         onChange={(e) => { setPassword(e.target.value) }}
-                        value = {password}
+                        value={password}
                     />
                 </div>
                 <div className="d-grid gap-2 mt-3">
                     <button type="submit" className="btn btn-primary submitbtn" onClick={handleSubmit}>
                         Update Details
+                    </button>
+                </div>
+
+                <div className="d-grid gap-2 mt-3">
+                    <button type="submit" className="btn btn-danger submitbtn" onClick={handleLogout}>
+                        Logout
                     </button>
                 </div>
                 {/* <p className="forgot-password text-right mt-2">
