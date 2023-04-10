@@ -50,26 +50,32 @@ const Book = () => {
             },
             // body:JSON.stringify({email,password})
         }).then(res => {
-            res.json().then(data => {
+            res.json().then(async (data) => {
                 setUser_id(data[0].user_id);
+
+                await fetch('http://localhost:8080/bookCabUserRequest', {
+                    mode: 'cors',
+                    method: 'POST',
+                    headers: {
+                        // 'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ user_id, pickup, drop, status, distance, estimatedCost, type })
+                }).then(res => {
+                    if (res.ok) {
+                        window.location.href = '/CurrentRide';
+                    } else if (res.status == 300) {
+                        alert('No Cabs Available');
+                    } else {
+                        alert("Cannot Book Cab. Try Again Later");
+                    }
+                })
             })
         })
 
-        await fetch('http://localhost:8080/bookCabUserRequest',{
-            mode:'cors',
-            method: 'POST',
-            headers:{
-                // 'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify({user_id,pickup,drop,status,distance,estimatedCost,type})
-        }).then(res=>{
-            if(res.ok){
-                window.location.href = '/CurrentRide';
-            }else{
-                console.log('Cannot Enter Data');
-            }
-        })
+        console.log({ user_id, pickup, drop, status, distance, estimatedCost, type });
+
+
     }
 
     return (

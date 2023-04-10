@@ -86,13 +86,9 @@ export const ProfilePageDriver = () => {
         handleLoad();
         return (
             <div className="loader" >
-
                 <LightningLoader />
-
             </div>
-
         )
-
     }
 
     async function handleLogout(e) {
