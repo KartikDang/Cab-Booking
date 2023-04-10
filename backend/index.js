@@ -438,6 +438,23 @@ app.post('/bookCabUserRequest',(req,res)=>{
     
 })
 
+app.post('/retrieveCurrentRide',(req,res)=>{
+    const user_id = req.body.user_id;
+    console.log(user_id);
+
+    const q = "select * from (booking join driver on booking.driver_id = driver.driver_id) join cab on cab.cab_id = driver.cab_id where user_id = ? and booking.status = 'Ongoing'";
+
+    db.query(q,[user_id],(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send('Error in database');
+        }else{
+            console.log(result);
+            res.status(200).send(result);
+        }
+    })
+})
+
 app.listen(8080, () => {
     console.log("Server is running on port 8080");
 })

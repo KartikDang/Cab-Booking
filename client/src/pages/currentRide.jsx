@@ -4,8 +4,18 @@ import { LightningLoader } from '../components/loader';
 
 const CurrentRide = (props) => {
 
-    const [ride, setRide] = React.useState({});
+    const [isLoaded, setIsLoaded] = React.useState(false);
+    const [ride, setRide] = React.useState([]);
+    const [user_id, setUser_id] = React.useState("");
 
+    const [pickup_location, setPickup_location] = React.useState("");
+    const [drop_location, setDrop_location] = React.useState("");
+    const [Name, setName] = React.useState("");
+    const [Contact, setContact] = React.useState("");
+    const [type, setType] = React.useState("");
+    const [RegNo, setRegNo] = React.useState("");
+    const [make, setMake] = React.useState("");
+    const [cost, setCost] = React.useState();
     async function handleLoad(e) {
         const user = await fetch("http://localhost:8080/retrieveCurrentUser", {
             mode: 'cors',
@@ -18,12 +28,14 @@ const CurrentRide = (props) => {
         }).then(res => {
             res.json().then(data => {
                 console.log(data[0]);
+                setUser_id(data[0].user_id);
                 // setIsLoaded(true);
                 return data[0];
             })
         })
 
-        console.log(user);
+        // const user_id = user.user_id;
+        // console.log(user);
 
         const result = await fetch("http://localhost:8080/retrieveCurrentRide", {
             mode: 'cors',
@@ -32,21 +44,28 @@ const CurrentRide = (props) => {
                 // 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ user_id: user.user_id })
+            body: JSON.stringify({ user_id })
         }).then(res => {
             res.json().then(data => {
-                console.log(data[0]);
-                setRide(data[0]);
+                console.log(data);
+                // setRide(data[0]);
+                setPickup_location(data[0].pickup_location);
+                setDrop_location(data[0].destination);
+                setName(data[0].name);
+                setContact(data[0].contact);
+                setType(data[0].type);
+                setRegNo(data[0].Reg_No);
+                setMake(data[0].model);
+                setCost(data[0].estimatedcost);
                 setIsLoaded(true);
                 return data[0];
             })
         })
 
 
-
+        console.log(ride);
     }
 
-    const [isLoaded, setIsLoaded] = React.useState(false);
 
     if (!isLoaded) {
         handleLoad();
@@ -94,6 +113,7 @@ const CurrentRide = (props) => {
                                     className="form-control mt-1"
                                     placeholder="Pickup"
                                     // onChange={(e) => { setPickup(e.target.value) }}
+                                    value={pickup_location}
                                     readOnly
                                 />
                             </div>
@@ -104,16 +124,7 @@ const CurrentRide = (props) => {
                                     className="form-control mt-1"
                                     placeholder="Drop"
                                     // onChange={(e) => { setDrop(e.target.value) }}
-                                    readOnly
-                                />
-                            </div>
-                            <div className="form-group mt-3">
-                                <label>Type</label>
-                                <input
-                                    type="text"
-                                    className="form-control mt-1"
-                                    placeholder="Type"
-                                    // onChange={(e) => { setDrop(e.target.value) }}
+                                    value={drop_location}
                                     readOnly
                                 />
                             </div>
@@ -123,6 +134,7 @@ const CurrentRide = (props) => {
                                     type="text"
                                     className="form-control mt-1"
                                     placeholder="Driver Name"
+                                    value={Name}
                                     // onChange={(e) => { setDrop(e.target.value) }}
                                     readOnly
                                 />
@@ -134,6 +146,7 @@ const CurrentRide = (props) => {
                                     className="form-control mt-1"
                                     placeholder="Car"
                                     // onChange={(e) => { setDrop(e.target.value) }}
+                                    value={make}
                                     readOnly
                                 />
                             </div>
@@ -143,14 +156,28 @@ const CurrentRide = (props) => {
                                     type="text"
                                     className="form-control mt-1"
                                     placeholder="Number"
+                                    value={RegNo}
+                                    // onChange={(e) => { setDrop(e.target.value) }}
+                                    readOnly
+                                />
+                            </div>
+                            <div className="form-group mt-3">
+                                <label>Cost</label>
+                                <input
+                                    type="text"
+                                    className="form-control mt-1"
+                                    placeholder="Cost"
+                                    value={cost}
                                     // onChange={(e) => { setDrop(e.target.value) }}
                                     readOnly
                                 />
                             </div>
 
                             <div className="d-grid gap-2 mt-3">
-                                <button type="submit" className="btn btn-primary submitbtn"
-                                // onClick={handleSubmit}
+                                <button type="submit" className="btn btn-danger cancelbtn"
+                                    style={{ width: "100%", marginTop: "2%" }}
+                                    // onClick={handleSubmit}
+                                    onClick={handleClick}
                                 >
                                     Cancel Cab
                                 </button>
