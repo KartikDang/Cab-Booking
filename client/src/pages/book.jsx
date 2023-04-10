@@ -6,48 +6,70 @@ import "./book.css";
 const Book = () => {
 
     const [type, setType] = React.useState("");
-    const [ pickup , setPickup ] = React.useState("");
-    const [ drop, setDrop ] = React.useState("");
-    // const 
+    const [pickup, setPickup] = React.useState("");
+    const [drop, setDrop] = React.useState("");
+    const [user_id, setUser_id] = React.useState("");
 
     const [distance, setDistance] = React.useState(21);
-    const [estimatedCost,setEstimatedCost] = React.useState();
+    const [estimatedCost, setEstimatedCost] = React.useState(0);
+    const [status, setStatus] = React.useState("Cab Requested");
     // console.log({pickup,drop,radioOption});
 
-    async function handleSubmit(e){
+    async function handleSubmit(e) {
         e.preventDefault();
-        console.log({pickup,drop,type});
+        console.log({ pickup, drop, type });
 
-        if(pickup==""||drop==""||type==""){
+        if (pickup == "" || drop == "" || type == "") {
             alert("Please fill all the fields");
         }
 
         // Obtain Fare
 
-        await fetch('http://localhost:8080/getFare',{
+        await fetch('http://localhost:8080/getFare', {
+            mode: 'cors',
+            method: 'POST',
+            headers: {
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ type })
+        }).then(res => {
+            res.json().then(data => {
+                console.log(data);
+                setEstimatedCost(data[0].Fare * distance);
+            })
+        })
+
+        //Obtain Current User
+        await fetch("http://localhost:8080/retrieveCurrentUser", {
+            mode: 'cors',
+            method: 'GET',
+            headers: {
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            // body:JSON.stringify({email,password})
+        }).then(res => {
+            res.json().then(data => {
+                setUser_id(data[0].user_id);
+            })
+        })
+
+        await fetch('http://localhost:8080/bookCabUserRequest',{
             mode:'cors',
             method: 'POST',
             headers:{
                 // 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body:JSON.stringify({type})
+            body:JSON.stringify({user_id,pickup,drop,status,distance,estimatedCost})
         }).then(res=>{
-            res.json().then(data=>{
-                console.log(data);
-                setEstimatedCost(data[0].Fare*distance);
-            })
+            if(res.ok){
+                window.location.href = '/CurrentRide';
+            }else{
+                console.log('Cannot Enter Data');
+            }
         })
-
-        // await fetch('http://localhost:8080/book',{
-        //     mode:'cors',
-        //     method: 'POST',
-        //     headers:{
-        //         // 'Accept': 'application/json',
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body:JSON.stringify({pickup,drop,type})
-        // })
     }
 
     return (
@@ -85,7 +107,7 @@ const Book = () => {
                                     type="text"
                                     className="form-control mt-1"
                                     placeholder="Pickup"
-                                onChange={(e) => { setPickup(e.target.value) }}
+                                    onChange={(e) => { setPickup(e.target.value) }}
                                 />
                             </div>
                             <div className="form-group mt-3">
@@ -94,7 +116,7 @@ const Book = () => {
                                     type="text"
                                     className="form-control mt-1"
                                     placeholder="Drop"
-                                onChange={(e) => { setDrop(e.target.value) }}
+                                    onChange={(e) => { setDrop(e.target.value) }}
                                 />
                             </div>
 
@@ -125,7 +147,7 @@ const Book = () => {
 
                             <div className="d-grid gap-2 mt-3">
                                 <button type="submit" className="btn btn-primary submitbtn"
-                                onClick={handleSubmit}
+                                    onClick={handleSubmit}
                                 >
                                     Book Cab
                                 </button>

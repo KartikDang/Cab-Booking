@@ -372,6 +372,30 @@ app.post('/getFare',(req,res)=>{
 })
 
 
+app.post('/bookCabUserRequest',(req,res)=>{
+    const Booking_id = uuidv4();
+    const user_id = req.body.user_id;
+    const pickup = req.body.pickup;
+    const drop = req.body.drop;
+    const status = req.body.status;
+    const distance = req.body.distance;
+    const estimatedCost = req.body.estimatedCost;
+
+    console.log({Booking_id,user_id,pickup_location,destination,status,distance,estimatedCost});
+
+    const q = "INSERT INTO booking (Booking_id,user_id,pickup,drop,status,distance,estimatedCost) VALUES (?,?,?,?,?,?,?)";
+    db.query(q,[Booking_id,user_id,pickup,drop,status,distance,estimatedCost],(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send('Error in database');
+        }else{
+            console.log("Inserted Successfully");
+            res.status(200).send("Booking Successful");
+        }
+    })
+    
+})
+
 app.listen(8080, () => {
     console.log("Server is running on port 8080");
 })
