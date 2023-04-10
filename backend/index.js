@@ -508,6 +508,22 @@ app.post('/logoutUser',(req,res)=>{
     })
 })
 
+app.post('/logoutDriver',(req,res)=>{
+    const driver_id = req.body.driver_id;
+
+    const q = "Delete from driver_session where driver_id = ?";
+
+    db.query(q,[driver_id],(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send('Error in Database');
+        }else{
+            console.log(result);
+            res.status(200).send('Logged out Successfully');
+        }
+    })
+})
+
 app.listen(8080, () => {
     console.log("Server is running on port 8080");
 })
