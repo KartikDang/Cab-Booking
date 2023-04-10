@@ -49,9 +49,9 @@ export const ProfilePageUser = () => {
         e.preventDefault();
 
 
-        console.log({ email, password, Name, contact,user_id });
+        console.log({ email, password, Name, contact, user_id });
 
-        
+
         await fetch('http://localhost:8080/updateUser', {
             mode: 'cors',
             method: 'POST',
@@ -69,8 +69,25 @@ export const ProfilePageUser = () => {
         })
     }
 
-    function signOut() {
-        console.log("sign out");
+    async function handleLogout(e) {
+        e.preventDefault();
+
+        await fetch('http://localhost:8080/logoutUser', {
+            mode: 'cors',
+            method: 'POST',
+            headers: {
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ user_id })
+        }).then(res=>{
+            if(res.ok){
+                window.location.href = '/';
+            }else{
+                console.log('Cannot Logout');
+            }
+        })
+        // console.log("sign out");
     }
 
 
@@ -103,8 +120,8 @@ export const ProfilePageUser = () => {
             {/* <img src="..." class="rounded mx-auto d-block" alt="..."></img> */}
 
 
-            <h2 className="Auth-form-title" style={{ margin: "1%" }}>Profile Page</h2>
-            <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=" class="rounded mx-auto d-block" alt="..." style={{ width: "15%" }} onLoad={handleLoad}></img>
+            <h2 className="Auth-form-title">Profile Page</h2>
+            <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=" class="rounded mx-auto d-block" alt="..." style={{ width: "12%" }} onLoad={handleLoad}></img>
 
             <div className="Auth-form-content profileUpdateForm">
                 <h3 className="Auth-form-title">Update User Details</h3>
@@ -125,7 +142,7 @@ export const ProfilePageUser = () => {
                         className="form-control mt-1"
                         placeholder="Contact Number"
                         onChange={(e) => { setContact(e.target.value) }}
-                        value = {contact}
+                        value={contact}
                     />
                 </div>
                 <div className="form-group mt-3">
@@ -135,7 +152,7 @@ export const ProfilePageUser = () => {
                         className="form-control mt-1"
                         placeholder="Email ID"
                         onChange={(e) => { setEmail(e.target.value) }}
-                        value = {email}
+                        value={email}
                         readOnly
                     />
                 </div>
@@ -146,12 +163,17 @@ export const ProfilePageUser = () => {
                         className="form-control mt-1"
                         placeholder="Password"
                         onChange={(e) => { setPassword(e.target.value) }}
-                        value = {password}
+                        value={password}
                     />
                 </div>
                 <div className="d-grid gap-2 mt-3">
                     <button type="submit" className="btn btn-primary submitbtn" onClick={handleSubmit}>
                         Update Details
+                    </button>
+                </div>
+                <div className="d-grid gap-2 mt-3">
+                    <button type="submit" className="btn btn-danger submitbtn" onClick={handleLogout}>
+                        Logout
                     </button>
                 </div>
                 {/* <p className="forgot-password text-right mt-2">

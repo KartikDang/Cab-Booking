@@ -490,6 +490,24 @@ app.post('/deleteBooking', (req, res) => {
     })
 })
 
+
+app.post('/logoutUser',(req,res)=>{
+    const user_id = req.body.user_id;
+    console.log(user_id);
+
+
+    const q = "Delete from user_session where user_id = ?";
+    db.query(q,[user_id],(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send("Error in Database");
+        }else{
+            console.log(result);
+            res.status(200).send("Logged Out Successfully");
+        }
+    })
+})
+
 app.listen(8080, () => {
     console.log("Server is running on port 8080");
 })

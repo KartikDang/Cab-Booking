@@ -103,8 +103,8 @@ export const ProfilePageDriver = () => {
             {/* <img src="..." class="rounded mx-auto d-block" alt="..."></img> */}
 
 
-            <h2 className="Auth-form-title" style={{ margin: "1%" }}>Driver Profile Page</h2>
-            <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=" class="rounded mx-auto d-block" alt="..." style={{ width: "15%" }} onLoad={handleLoad}></img>
+            <h2 className="Auth-form-title">Driver Profile Page</h2>
+            <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=" class="rounded mx-auto d-block" alt="..." style={{ width: "12%" }} onLoad={handleLoad}></img>
 
             <div className="Auth-form-content profileUpdateForm">
                 <h3 className="Auth-form-title">Update Driver Personal Details</h3>
