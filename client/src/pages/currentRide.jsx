@@ -17,6 +17,7 @@ const CurrentRide = (props) => {
     const [make, setMake] = React.useState("");
     const [cost, setCost] = React.useState();
     const [Booking_id, setBooking_Id] = React.useState("");
+    const [cab_id,setCab_id] = React.useState("");
 
     async function handleLoad(e) {
         const user = await fetch("http://localhost:8080/retrieveCurrentUser", {
@@ -50,6 +51,7 @@ const CurrentRide = (props) => {
         }).then(res => {
             res.json().then(data => {
                 console.log(data);
+                console.log(data[0]);
                 // setRide(data[0]);
                 setPickup_location(data[0].pickup_location);
                 setDrop_location(data[0].destination);
@@ -60,6 +62,7 @@ const CurrentRide = (props) => {
                 setMake(data[0].model);
                 setCost(data[0].estimatedcost);
                 setBooking_Id(data[0].Booking_id);
+                setCab_id(data[0].cab_id);
                 setIsLoaded(true);
                 return data[0];
             })
@@ -90,7 +93,7 @@ const CurrentRide = (props) => {
                 // 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ Booking_id })
+            body: JSON.stringify({ Booking_id,cab_id })
         }).then(res=>{
             if(res.status == 200){
                 window.location.href = '/booking'

@@ -293,16 +293,16 @@ app.post("/updateDriver", (req, res) => {
     })
 })
 
-app.post("/retrieveCab",(req,res)=>{
+app.post("/retrieveCab", (req, res) => {
     const cab_id = req.body.cab_id;
     console.log(cab_id);
     const q = "SELECT * FROM cab WHERE cab_id = ?";
 
-    db.query(q,[cab_id],(err,result)=>{
-        if(err){
+    db.query(q, [cab_id], (err, result) => {
+        if (err) {
             console.log(err);
             res.status(500).send('Error in database');
-        }else{
+        } else {
             console.log(result);
             res.status(200).send(result);
         }
@@ -331,10 +331,10 @@ app.post('/updateStatus', (req, res) => {
 app.get('/allcustomers', (req, res) => {
     const q = "SELECT * FROM user";
 
-    db.query(q,(err,result)=>{
-        if(err){
+    db.query(q, (err, result) => {
+        if (err) {
             res.status(500).send('Error in database');
-        }else{
+        } else {
             console.log(result);
             res.status(200).send(result);
         }
@@ -344,26 +344,26 @@ app.get('/allcustomers', (req, res) => {
 app.get('/alldrivers', (req, res) => {
     const q = "SELECT * FROM driver natural join cab";
 
-    db.query(q,(err,result)=>{
-        if(err){
+    db.query(q, (err, result) => {
+        if (err) {
             res.status(500).send('Error in database');
-        }else{
+        } else {
             console.log(result);
             res.status(200).send(result);
         }
     })
-})  
+})
 
 
-app.post('/getFare',(req,res)=>{
+app.post('/getFare', (req, res) => {
     const type = req.body.type;
 
     const q = 'SELECT * FROM FARE WHERE TYPE = ?';
-    db.query(q,[type],(err,result)=>{
-        if(err){
+    db.query(q, [type], (err, result) => {
+        if (err) {
             console.log(err);
             res.status(500).send('Error in database');
-        }else{
+        } else {
             console.log(result);
             res.status(200).send(result);
         }
@@ -372,7 +372,7 @@ app.post('/getFare',(req,res)=>{
 })
 
 
-app.post('/bookCabUserRequest',(req,res)=>{
+app.post('/bookCabUserRequest', (req, res) => {
     const Booking_id = uuidv4();
     const user_id = req.body.user_id;
     const pickup = req.body.pickup;
@@ -382,14 +382,14 @@ app.post('/bookCabUserRequest',(req,res)=>{
     const estimatedCost = req.body.estimatedCost;
     const type = req.body.type;
 
-    console.log({Booking_id,user_id,pickup,drop,status,distance,estimatedCost});
+    console.log({ Booking_id, user_id, pickup, drop, status, distance, estimatedCost });
 
     const q = "INSERT INTO booking (Booking_id,user_id,pickup_location,destination,status,distance,estimatedCost) VALUES (?,?,?,?,?,?,?)";
-    db.query(q,[Booking_id,user_id,pickup,drop,status,distance,estimatedCost],(err,result)=>{
-        if(err){
+    db.query(q, [Booking_id, user_id, pickup, drop, status, distance, estimatedCost], (err, result) => {
+        if (err) {
             console.log(err);
             res.status(500).send('Error in database');
-        }else{
+        } else {
             console.log("Inserted Successfully");
             // res.status(200).send("Booking Successful");
         }
@@ -397,76 +397,95 @@ app.post('/bookCabUserRequest',(req,res)=>{
 
     const q2 = "Select driver_id,name,contact,model,type,cab_id from driver natural join cab where type = ? and status = 'available'";
 
-    db.query(q2,[type],(err,result)=>{
-        if(err){
+    db.query(q2, [type], (err, result) => {
+        if (err) {
             console.log(err);
             res.status(500).send('Error in database');
-        }else{
+        } else {
             console.log(result);
             // res.status(200).send(result);
-            
-                const driver_id = result[0].driver_id;
-                const cab_id = result[0].cab_id;
-                const q3 = "Update booking set driver_id = ?, status = 'Ongoing' where Booking_id = ?";
 
-                db.query(q3,[driver_id,Booking_id],(err,result)=>{
-                    if(err){
-                        console.log(err);
-                        res.status(500).send('Error in database');
-                    }else{
-                        console.log(result);
-                        // res.status(200).send("Booking Successful");
-                        const q4 = "Update cab set status = 'Not Available' where cab_id = ?";
+            const driver_id = result[0].driver_id;
+            const cab_id = result[0].cab_id;
+            const q3 = "Update booking set driver_id = ?, status = 'Ongoing' where Booking_id = ?";
 
-                        db.query(q4,[cab_id],(err,result)=>{
-                            if(err){
-                                console.log(err);
-                                res.status(500).send('Error in database');
-                            }else{
-                                console.log(result);
-                                console.log("Updated Successfully");
-                                res.status(200).send("Booking Successful");
-                            }
-                        })
-                    }
-                })
+            db.query(q3, [driver_id, Booking_id], (err, result) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).send('Error in database');
+                } else if (result.length == 0) {
+                    res.status(300).send('No Cabs Available');
 
-    
-        
+                }
+                else {
+                    console.log(result);
+                    // res.status(200).send("Booking Successful");
+                    const q4 = "Update cab set status = 'Not Available' where cab_id = ?";
+
+                    db.query(q4, [cab_id], (err, result) => {
+                        if (err) {
+                            console.log(err);
+                            res.status(500).send('Error in database');
+                        } else {
+                            console.log(result);
+                            console.log("Updated Successfully");
+                            res.status(200).send("Booking Successful");
+                        }
+                    })
+                }
+            })
+
+
+
         }
     })
-    
+
 })
 
-app.post('/retrieveCurrentRide',(req,res)=>{
+app.post('/retrieveCurrentRide', (req, res) => {
     const user_id = req.body.user_id;
     console.log(user_id);
 
     const q = "select * from (booking join driver on booking.driver_id = driver.driver_id) join cab on cab.cab_id = driver.cab_id where user_id = ? and booking.status = 'Ongoing'";
 
-    db.query(q,[user_id],(err,result)=>{
-        if(err){
+    db.query(q, [user_id], (err, result) => {
+        if (err) {
             console.log(err);
             res.status(500).send('Error in database');
-        }else{
+        } else {
             console.log(result);
             res.status(200).send(result);
+
+
         }
     })
 })
 
-app.post('/deleteBooking',(req,res)=>{
+app.post('/deleteBooking', (req, res) => {
     const booking_id = req.body.Booking_id;
+    const cab_id = req.body.cab_id;
 
     const q = "Delete from booking where Booking_id = ?";
 
-    db.query(q,[booking_id],(err,result)=>{
-        if(err){
+    db.query(q, [booking_id], (err, result) => {
+        if (err) {
             console.log(err);
             res.status(500).send("Error in database");
-        }else{
+        } else {
             console.log(result);
-            res.status(200).send("Cancelled Booking");
+
+            const q2 = "Update cab set status = 'Available' where cab_id = ?";
+
+            db.query(q2, [cab_id], (err, result) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).send('Error in Database');
+                } else {
+                    console.log(result);
+                    // res.status(200).send(')
+                    res.status(200).send("Cancelled Booking");
+                }
+            })
         }
     })
 })
