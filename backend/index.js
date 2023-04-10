@@ -355,6 +355,23 @@ app.get('/alldrivers', (req, res) => {
 })  
 
 
+app.post('/getFare',(req,res)=>{
+    const type = req.body.type;
+
+    const q = 'SELECT * FROM FARE WHERE TYPE = ?';
+    db.query(q,[type],(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send('Error in database');
+        }else{
+            console.log(result);
+            res.status(200).send(result);
+        }
+    })
+
+})
+
+
 app.listen(8080, () => {
     console.log("Server is running on port 8080");
 })

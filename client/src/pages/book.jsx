@@ -5,8 +5,51 @@ import "./book.css";
 
 const Book = () => {
 
-    const [radioOption, setRadioOption] = React.useState("");
-    console.log(radioOption);
+    const [type, setType] = React.useState("");
+    const [ pickup , setPickup ] = React.useState("");
+    const [ drop, setDrop ] = React.useState("");
+    // const 
+
+    const [distance, setDistance] = React.useState(21);
+    const [estimatedCost,setEstimatedCost] = React.useState();
+    // console.log({pickup,drop,radioOption});
+
+    async function handleSubmit(e){
+        e.preventDefault();
+        console.log({pickup,drop,type});
+
+        if(pickup==""||drop==""||type==""){
+            alert("Please fill all the fields");
+        }
+
+        // Obtain Fare
+
+        await fetch('http://localhost:8080/getFare',{
+            mode:'cors',
+            method: 'POST',
+            headers:{
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({type})
+        }).then(res=>{
+            res.json().then(data=>{
+                console.log(data);
+                setEstimatedCost(data[0].Fare*distance);
+            })
+        })
+
+        // await fetch('http://localhost:8080/book',{
+        //     mode:'cors',
+        //     method: 'POST',
+        //     headers:{
+        //         // 'Accept': 'application/json',
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body:JSON.stringify({pickup,drop,type})
+        // })
+    }
+
     return (
         <div>
 
@@ -39,57 +82,61 @@ const Book = () => {
                             <div className="form-group mt-3">
                                 <label>Pickup Location</label>
                                 <input
-                                    type="email"
+                                    type="text"
                                     className="form-control mt-1"
                                     placeholder="Pickup"
-                                // onChange={(e) => { setEmail(e.target.value) }}
+                                onChange={(e) => { setPickup(e.target.value) }}
                                 />
                             </div>
                             <div className="form-group mt-3">
                                 <label>Drop Location</label>
                                 <input
-                                    type="password"
+                                    type="text"
                                     className="form-control mt-1"
                                     placeholder="Drop"
-                                // onChange={(e) => { setPassword(e.target.value) }}
+                                onChange={(e) => { setDrop(e.target.value) }}
                                 />
                             </div>
 
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Micro"
-                                    onChange={(e) => { setRadioOption(e.target.value) }}
+                                    onChange={(e) => { setType(e.target.value) }}
                                 />
                                 <label class="form-check-label" for="inlineRadio1">Micro</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Mini"
-                                    onChange={(e) => { setRadioOption(e.target.value) }}
+                                    onChange={(e) => { setType(e.target.value) }}
                                 />
                                 <label class="form-check-label" for="inlineRadio2">Mini</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="Prime"
-                                    onChange={(e) => { setRadioOption(e.target.value) }}
+                                    onChange={(e) => { setType(e.target.value) }}
                                 />
                                 <label class="form-check-label" for="inlineRadio3">Prime</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="SUV"
-                                    onChange={(e) => { setRadioOption(e.target.value) }}
+                                    onChange={(e) => { setType(e.target.value) }}
                                 />
                                 <label class="form-check-label" for="inlineRadio3">SUV</label>
                             </div>
 
                             <div className="d-grid gap-2 mt-3">
                                 <button type="submit" className="btn btn-primary submitbtn"
-                                // onClick={handleSubmit}
+                                onClick={handleSubmit}
                                 >
                                     Book Cab
                                 </button>
                             </div>
-                            {/* <p className="forgot-password text-right mt-2">
-                                Forgot password?
-                            </p> */}
+                            <hr />
+                            <p className="forgot-password text-left mt-2">
+                                <b>Distance</b> : {distance} km
+                            </p>
+                            <p className="forgot-password text-left mt-2">
+                                <b>Expected Fare</b> : {estimatedCost} Rs
+                            </p>
                         </div>
                     </form>
                 </div>
