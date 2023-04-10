@@ -1,0 +1,25 @@
+.bookingWindow{
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 0;
+
+}
+
+.booking-form .Map{
+    flex:auto;
+    flex-basis: 0;
+    width:0
+}
+
+
+.booking-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+}
+
+.Map{
+    width:580px
+}
+
