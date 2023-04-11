@@ -19,33 +19,35 @@ import { PastRidesUser } from './pages/pastRidesUser';
 import Maps from './pages/Maps';
 import CurrentRide from './pages/currentRide';
 import Feedback from './pages/Feedback';
-const BasicMap = React.lazy(() => import("./pages/Maps"));
+import BasicMap from './components/map';
+// const BasicMap = React.lazy(() => import("./pages/Maps"));
 
 function App() {
   return (
-    <BrowserRouter>
+        <BasicMap/>
+    // <BrowserRouter>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LoginOption />} />
-        <Route path="/register" element={<RegisterOption />} />
-        <Route path="/booking" element={<Book />} />
-        <Route path='/registerUser' element={<RegisterUser />} />
-        <Route path='/loginUser' element={<LoginUser />} />
-        <Route path='/registerDriver' element={<RegisterDriver />} />
-        <Route path="/loginDriver" element={<LoginDriver />} />
-        <Route path="/profileUser" element={<ProfilePageUser />} />
-        <Route path="/driverDashboard" element={<DriverDashboard />} />
-        <Route path="/profileDriver" element={<ProfilePageDriver />} />
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/customers" element={<Customers />} />
-        <Route path="/drivers" element={<Drivers />} />
-        <Route path='/basic' component={BasicMap} />
-        <Route path='/currentRide' element={<CurrentRide />} />
-        <Route path='/pastRides' element={<PastRidesUser />} />
-        <Route path = '/feedback/:id' element={<Feedback />} />
-      </Routes>
-    </BrowserRouter>
+    //   <Routes>
+    //     <Route path="/" element={<Home />} />
+    //     <Route path="/login" element={<LoginOption />} />
+    //     <Route path="/register" element={<RegisterOption />} />
+    //     <Route path="/booking" element={<Book />} />
+    //     <Route path='/registerUser' element={<RegisterUser />} />
+    //     <Route path='/loginUser' element={<LoginUser />} />
+    //     <Route path='/registerDriver' element={<RegisterDriver />} />
+    //     <Route path="/loginDriver" element={<LoginDriver />} />
+    //     <Route path="/profileUser" element={<ProfilePageUser />} />
+    //     <Route path="/driverDashboard" element={<DriverDashboard />} />
+    //     <Route path="/profileDriver" element={<ProfilePageDriver />} />
+    //     <Route path="/admin" element={<AdminPage />} />
+    //     <Route path="/customers" element={<Customers />} />
+    //     <Route path="/drivers" element={<Drivers />} />
+    //     <Route path='/basic' component={BasicMap} />
+    //     <Route path='/currentRide' element={<CurrentRide />} />
+    //     <Route path='/pastRides' element={<PastRidesUser />} />
+    //     <Route path = '/feedback/:id' element={<Feedback />} />
+    //   </Routes>
+    // </BrowserRouter>
   );
 }
 

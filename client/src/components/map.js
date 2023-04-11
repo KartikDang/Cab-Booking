@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-// import Header from "components/Header";
-import {  MapContainer, TileLayer } from "react-leaflet";
-// import osm from "./osm-providers";
+import { MapContainer, TileLayer } from "react-leaflet";
 import { useRef } from "react";
 import "leaflet/dist/leaflet.css";
-// import ExternalInfo from "components/ExternalInfo";
 
 const BasicMap = () => {
     const [center, setCenter] = useState({ lat: 13.084622, lng: 80.248357 });
@@ -13,10 +10,6 @@ const BasicMap = () => {
 
     return (
         <>
-            {/* <Header title="React Leaflet Map Example" /> */}
-
-            {/* <ExternalInfo page="leafletBasic" /> */}
-
             <div className="row">
                 <div className="col text-center">
                     <h2>React-leaflet - Basic Openstreet Maps</h2>
@@ -24,8 +17,8 @@ const BasicMap = () => {
                     <div className="col">
                         <MapContainer center={center} zoom={ZOOM_LEVEL} ref={mapRef}>
                             <TileLayer
-                                url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=fXmTwJM642uPLZiwzhA1"
-                                attribution='&copy; <a href="https://www.maptiler.com/">MapTiler</a> &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://api.maptiler.com/maps/basic-v2/256/{z}/{x}/{y}.png?key=wuuharAIEEcr5bSmBdpM"
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             />
                         </MapContainer>
                     </div>
