@@ -19,6 +19,7 @@ import { PastRidesUser } from './pages/pastRidesUser';
 import Maps from './pages/Maps';
 import CurrentRide from './pages/currentRide';
 import Feedback from './pages/Feedback';
+import AdminLogin from './pages/adminLogin';
 const BasicMap = React.lazy(() => import("./pages/Maps"));
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
         <Route path='/currentRide' element={<CurrentRide />} />
         <Route path='/pastRides' element={<PastRidesUser />} />
         <Route path = '/feedback/:id' element={<Feedback />} />
+        <Route path = '/adminLogin' element = {<AdminLogin/>}/>
       </Routes>
     </BrowserRouter>
   );

@@ -23,7 +23,7 @@ export const LoginOption = () => {
                 </div>
             </nav>
 
-            <div className="title" style={{textAlign:"center",marginTop:"2vh"}}>
+            <div className="title" style={{ textAlign: "center", marginTop: "2vh" }}>
                 <h1>
                     LOGIN PAGE
                 </h1>
@@ -47,6 +47,13 @@ export const LoginOption = () => {
                         </div>
                     </Link>
                 </button>
+                {/* <button type="submit" className="btn btn-primary submitbtn" >
+                    <Link to='/adminlogin'>
+                        <div className="text">
+                            Admin Login
+                        </div>
+                    </Link>
+                </button> */}
 
             </div>
         </div >
