@@ -159,7 +159,7 @@ app.post("/registerDriver", (req, res) => {
     const Reg_No = req.body.RegNo;
     const license_no = req.body.LicNo;
 
-    const driver_q = "INSERT INTO DRIVER (driver_id,email,license_no,password,name,contact,cab_id) VALUES (?,?,?,?,?,?,?)";
+    const driver_q = "INSERT INTO driver (driver_id,email,license_no,password,name,contact,cab_id) VALUES (?,?,?,?,?,?,?)";
     const cab_q = "INSERT INTO cab (cab_id,type,model,Reg_No) VALUES (?,?,?,?)";
 
     var flagDriver = 0;
