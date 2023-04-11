@@ -576,6 +576,26 @@ app.post('/retrievePastRides', (req, res) => {
     })
  })
 
+ app.post('/feedback',(req,res)=>{
+    const Booking_id = req.body.id;
+    const comment = req.body.comments;
+    const Rating = req.body.intOption;
+    const Feedback_id = uuidv4();
+    console.log({Booking_id,comment,Rating,Feedback_id});
+
+    const q = "Insert into feedback(Feedback_id, Booking_id, comment, Rating) values(?,?,?,?)";
+
+    db.query(q,[Feedback_id,Booking_id,comment,Rating],(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send('Error in Database');
+        }else{
+            console.log(result);
+            res.status(200).send("Feedback Submitted");
+        }
+    })
+ })
+
 app.listen(8080, () => {
     console.log("Server is running on port 8080");
 })

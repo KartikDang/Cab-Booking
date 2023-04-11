@@ -10,33 +10,44 @@ const Feedback = () => {
     const [isLoaded, setisLoaded] = React.useState(false);
     const [comments, setComments] = React.useState("");
 
-    async function handleLoad(e) {
-        const { id } = useParams;
-        setIntOption(parseInt(option));
-        console.log({intOption});
+    const { id } = useParams();
+    async function handleSubmit(e) {
 
-        await fetch("http://localhost:8080/feedback",{
+        e.preventDefault();
+        setIntOption(parseInt(option));
+        console.log({ intOption });
+
+        console.log({ intOption, comments, id });
+
+        await fetch("http://localhost:8080/feedback", {
             mode: 'cors',
             method: 'POST',
             headers: {
                 // 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({intOption,comments,id })
+            body: JSON.stringify({ intOption, comments, id })
+        }).then(res => {
+            if (res.status == 200) {
+                alert('Feedback Submitted. Thanks for your time');
+                window.location.href = `/bill/${id}`;
+            } else {
+                alert('Feedback Not Submitted. Try Again');
+            }
         })
     }
 
-    if (!isLoaded) {
-        handleLoad();
-        return (
-            <div className="loader" >
-                <LightningLoader />
-            </div>
+    // if (!isLoaded) {
+    //     handleLoad();
+    //     return (
+    //         <div className="loader" >
+    //             <LightningLoader />
+    //         </div>
 
-        )
+    //     )
 
-    }
-    
+    // }
+
     return (
         <div>
             {/* NAVBAR */}
@@ -89,7 +100,7 @@ const Feedback = () => {
                                 type="text"
                                 className="form-control mt-1"
                                 placeholder="Comment"
-                            onChange={(e) => { setComments(e.target.value) }}
+                                onChange={(e) => { setComments(e.target.value) }}
                             />
                         </div>
                         {/* <div className="form-group mt-3">
@@ -104,42 +115,42 @@ const Feedback = () => {
 
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1"
-                            onChange={(e) => { setOption(e.target.value) }}
+                                onChange={(e) => { setOption(e.target.value) }}
                             />
                             <label class="form-check-label" for="inlineRadio1">1
                                 <i class="ri-star-fill"></i></label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2"
-                            onChange={(e) => { setOption(e.target.value) }}
+                                onChange={(e) => { setOption(e.target.value) }}
                             />
                             <label class="form-check-label" for="inlineRadio2">2
                                 <i class="ri-star-fill"></i></label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3"
-                            onChange={(e) => { setOption(e.target.value) }}
+                                onChange={(e) => { setOption(e.target.value) }}
                             />
                             <label class="form-check-label" for="inlineRadio3">3
                                 <i class="ri-star-fill"></i></label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="4"
-                            onChange={(e) => { setOption(e.target.value) }}
+                                onChange={(e) => { setOption(e.target.value) }}
                             />
                             <label class="form-check-label" for="inlineRadio3">4
                                 <i class="ri-star-fill"></i></label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="5"
-                            onChange={(e) => { setOption(e.target.value) }}
+                                onChange={(e) => { setOption(e.target.value) }}
                             />
                             <label class="form-check-label" for="inlineRadio3">5
                                 <i class="ri-star-fill"></i></label>
                         </div>
 
                         <div className="d-grid gap-2 mt-3">
-                            <button type="submit" className="btn btn-primary submitbtn" >
+                            <button type="submit" className="btn btn-primary submitbtn" onClick={handleSubmit}>
                                 Submit Feedback
                             </button>
                         </div>
