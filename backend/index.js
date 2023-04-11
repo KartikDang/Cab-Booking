@@ -47,16 +47,6 @@ app.post("/loginUser", (req, res) => {
         } else {
             var flag = 0;
             const jsonData = JSON.stringify(result);
-            // jsonData.map((e)=>{
-            //     console.log(e.password);
-            // })
-
-            // if(flag===0){
-            //     res.send("Wrong Password");
-            // }
-            // res.json(result);
-
-            // res.send(result[0].Password);
             console.log(result[0].Password);
             if (result[0].Password == password) {
                 res.status(200).send("Login Successful");
@@ -615,6 +605,25 @@ app.post('/retrievePastRides', (req, res) => {
         }
     })
 
+ })
+
+ app.post('/generateBill',(req,res)=>{
+
+    const Booking_id = req.body.booking_id;
+
+    console.log(req.body);
+
+    const q = "Select bill.bill_id, booking.booking_id, user.user_id, user.name, booking.pickup_location, booking.destination, booking.estimatedcost from (bill join booking on bill.Booking_id = booking.Booking_id) join user on booking.user_id = user.user_id where booking.Booking_id = ?"
+
+    db.query(q,[Booking_id],(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send("Error in Database");
+        }else{
+            console.log(result);
+            res.status(200).send(result);
+        }
+    })
  })
 
 app.listen(8080, () => {

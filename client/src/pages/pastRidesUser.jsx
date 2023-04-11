@@ -8,6 +8,7 @@ export const PastRidesUser = () => {
     const [user_id, setUser_id] = React.useState('');
     const [res, setRes] = React.useState([]);
     const [isLoaded, setIsLoaded] = React.useState(false);
+    const [booking_id, setBooking_id] = React.useState('');
 
     async function getPastRides(e) {
         await fetch('http://localhost:8080/retrieveCurrentUser', {
@@ -48,8 +49,8 @@ export const PastRidesUser = () => {
     const handleGenerate = async (booking) => {
 
         const date = new Date();
-        
-        
+
+
         const data = {
             documentTitle: "INVOICE", //Defaults to INVOICE
             currency: "INR",
@@ -66,7 +67,7 @@ export const PastRidesUser = () => {
                 city: "Pilani",
                 country: "India",
             },
-            client:{
+            client: {
                 company: `${booking.Name}`,
                 address: "ABC Street",
                 zip: "330031",
@@ -75,7 +76,7 @@ export const PastRidesUser = () => {
             },
             invoiceNumber: `${booking.bill_id}`,
             // invoiceDate: ,
-            products:[
+            products: [
                 {
                     quantity: "1",
                     description: `${booking.pickup_location} to ${booking.destination}`,
@@ -165,25 +166,47 @@ export const PastRidesUser = () => {
                         {/* </td> */}
                         {/* </tr> */}
 
-                        {res.map((e) => {
+                        {res.map((result) => {
                             return (
                                 <tr>
-                                    <td>{e.destination}</td>
-                                    <td>{e.estimatedcost}</td>
-                                    <td>{e.name}</td>
-                                    <td>{e.model}</td>
+                                    <td>{result.destination}</td>
+                                    <td>{result.estimatedcost}</td>
+                                    <td>{result.name}</td>
+                                    <td>{result.model}</td>
                                     <td>
 
-                                        <button type="button" class="btn btn-info" onClick={(e)=>{
+                                        <button type="button" class="btn btn-info" onClick={async (e) => {
                                             e.preventDefault();
-                                            
-                                            handleGenerate({
-                                                Name: "Kartik Dang",
-                                                bill_id: "12314",
-                                                pickup_location: "Pilani",
-                                                destination: "Jaipur",
-                                                estimatedcost: "1000"
-                                            });
+
+                                            setBooking_id(result.Booking_id);
+
+                                            await fetch('http://localhost:8080/generateBill', {
+                                                mode: 'cors',
+                                                method: 'POST',
+                                                headers: {
+                                                    // 'Accept': 'application/json',
+                                                    'Content-Type': 'application/json'
+                                                },
+                                                body: JSON.stringify({ booking_id: result.Booking_id })
+                                            }).then(res => {
+                                                res.json().then(async data => {
+                                                    console.log(data);
+                                                    // setRes(data);
+                                                    // setIsLoaded(true);
+                                                    // // setMake(data[0].model);
+                                                    // // setType(data[0].type);
+                                                    // // setStatus(data[0].status);
+
+                                                    await handleGenerate({
+                                                        Name: data[0].name,
+                                                        bill_id: data[0].bill_id,
+                                                        pickup_location: data[0].pickup_location,
+                                                        destination: data[0].destination,
+                                                        estimatedcost: data[0].estimatedcost
+                                                    });
+                                                })
+                                            })
+
                                         }}>Generate Bill</button>
                                         {/* </Link> */}
                                     </td>
