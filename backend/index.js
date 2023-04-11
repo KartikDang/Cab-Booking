@@ -477,7 +477,7 @@ app.post('/deleteBooking', (req, res) => {
 
             db.query(q2, [cab_id], (err, result) => {
                 if (err) {
-                    console.log(err);
+                    console.log(err);   
                     res.status(500).send('Error in Database');
                 } else {
                     console.log(result);
