@@ -5,6 +5,7 @@ import bodyparser from "body-parser";
 app.use(express.json());
 import cors from "cors";
 import { v4 as uuidv4 } from 'uuid';
+import e from "express";
 
 app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
@@ -594,6 +595,26 @@ app.post('/retrievePastRides', (req, res) => {
             res.status(200).send("Feedback Submitted");
         }
     })
+ })
+
+ app.post('/createBill',(req,res)=>{
+    const bill_id = uuidv4();  
+    const Booking_id = req.body.id;
+    const status = "Cleared";
+
+    console.log({bill_id,Booking_id,status});
+    const q = "Insert into bill(bill_id, Booking_id, status) values(?,?,?)";
+
+    db.query(q,[bill_id,Booking_id,status],(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send("Error in Database");
+        }else{
+            console.log(result);
+            res.status(200).send("Bill Created");
+        }
+    })
+
  })
 
 app.listen(8080, () => {

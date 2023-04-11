@@ -27,10 +27,26 @@ const Feedback = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ intOption, comments, id })
-        }).then(res => {
+        }).then(async res => {
             if (res.status == 200) {
-                alert('Feedback Submitted. Thanks for your time');
-                window.location.href = `/bill/${id}`;
+                // window.location.href = `/bill/${id}`;
+                
+                await fetch("http://localhost:8080/createBill",{
+                    mode: 'cors',
+                    method: 'POST',
+                    headers: {
+                        // 'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }, 
+                    body: JSON.stringify({id})
+                }).then(res=>{
+                    if(res.status==200){
+                        alert('Feedback Submitted. Thanks for your time');
+                        window.location.href = `/booking`;
+                    }else{
+                        alert('Bill Not Cleared');
+                    }
+                })
             } else {
                 alert('Feedback Not Submitted. Try Again');
             }

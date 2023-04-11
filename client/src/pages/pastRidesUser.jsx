@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { LightningLoader } from '../components/loader';
 import LoginUser from './login';
-
+import easyInvoice from 'easyinvoice';
 export const PastRidesUser = () => {
 
     const [user_id, setUser_id] = React.useState('');
@@ -42,6 +42,52 @@ export const PastRidesUser = () => {
                 })
             })
         })
+    }
+
+
+    const handleGenerate = async (booking) => {
+
+        const date = new Date();
+        
+        
+        const data = {
+            documentTitle: "INVOICE", //Defaults to INVOICE
+            currency: "INR",
+            taxNotation: "gst", //or gst
+            marginTop: 25,
+            marginRight: 25,
+            marginLeft: 25,
+            marginBottom: 25,
+            // logo: "link to show on your invoice",
+            sender: {
+                company: "DP Cab Service",
+                address: "Bits Pilani",
+                zip: "333031",
+                city: "Pilani",
+                country: "India",
+            },
+            client:{
+                company: `${booking.Name}`,
+                address: "ABC Street",
+                zip: "330031",
+                city: "Pilani",
+                country: "India",
+            },
+            invoiceNumber: `${booking.bill_id}`,
+            // invoiceDate: ,
+            products:[
+                {
+                    quantity: "1",
+                    description: `${booking.pickup_location} to ${booking.destination}`,
+                    tax: "18",
+                    price: `${booking.estimatedcost}`
+                }
+            ],
+            bottomNotice: "Thank you for choosing DP Cab Service",
+        };
+
+        const result = await easyInvoice.createInvoice(data);
+        easyInvoice.download(`invoice_${booking.bill_id}.pdf`, result.pdf);
     }
 
     if (!isLoaded) {
@@ -105,7 +151,7 @@ export const PastRidesUser = () => {
                             <th scope="col">Cost</th>
                             <th scope="col">Driver Name</th>
                             <th scope="col">Car</th>
-                            {/* <th scope="col"></th> */}
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
@@ -126,6 +172,23 @@ export const PastRidesUser = () => {
                                     <td>{e.estimatedcost}</td>
                                     <td>{e.name}</td>
                                     <td>{e.model}</td>
+                                    <td>
+
+                                        <button type="button" class="btn btn-info" onClick={(e)=>{
+                                            e.preventDefault();
+                                            
+                                            handleGenerate({
+                                                Name: "Kartik Dang",
+                                                bill_id: "12314",
+                                                pickup_location: "Pilani",
+                                                destination: "Jaipur",
+                                                estimatedcost: "1000"
+                                            });
+                                        }}>Generate Bill</button>
+                                        {/* </Link> */}
+                                    </td>
+
+
 
                                     {/* <button type="button" class="btn btn-info" onClick={(e)=>{
                                             e.preventDefault();
