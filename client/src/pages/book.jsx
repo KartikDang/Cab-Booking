@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from "reactstrap";
 import { Link } from 'react-router-dom';
-import Map from './Maps';
+import Map from '../components/map';
 import "./book.css";
 
 const Book = () => {
@@ -191,8 +191,8 @@ const Book = () => {
                     </form>
                 </div>
 
-                <div className="Map">
-                    {/* <Map /> */}
+                <div className="Map" id="MapID">
+                    <Map /> 
                     MAP AREA
                 </div>
             </div>
