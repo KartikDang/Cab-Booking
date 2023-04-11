@@ -1,31 +1,36 @@
-import React, { useState } from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
-import { useRef } from "react";
-import "leaflet/dist/leaflet.css";
+import React, { useEffect, useRef, useState } from 'react';
+import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
-const BasicMap = () => {
-    const [center, setCenter] = useState({ lat: 13.084622, lng: 80.248357 });
-    const ZOOM_LEVEL = 9;
-    const mapRef = useRef();
+const Map = () => {
+  const [map, setMap] = useState(null);
+  const mapContainer = useRef(null);
 
-    return (
-        <>
-            <div className="row">
-                <div className="col text-center">
-                    <h2>React-leaflet - Basic Openstreet Maps</h2>
-                    <p>Loading basic map using layer from maptiler</p>
-                    <div className="col">
-                        <MapContainer center={center} zoom={ZOOM_LEVEL} ref={mapRef}>
-                            <TileLayer
-                                url="https://api.maptiler.com/maps/basic-v2/256/{z}/{x}/{y}.png?key=wuuharAIEEcr5bSmBdpM"
-                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            />
-                        </MapContainer>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
+  useEffect(() => {
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYWF5dXNoLXBhdXJhbmEiLCJhIjoiY2tsdmRmdXBhMTh0ajJwcDN6dzBvbTRpMSJ9.GOnDbSjS7SVzNqrhLChmXA';
+
+    const initializeMap = ({ setMap, mapContainer }) => {
+      const map = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [75.588, 28.3588],
+        zoom: 12
+      });
+
+      map.on('load', () => {
+        setMap(map);
+      });
+    };
+
+    if (!map) initializeMap({ setMap, mapContainer });
+  }, [map]);
+
+  return (
+    <div
+      ref={el => (mapContainer.current = el)}
+      style={{ width: '100%', height: '500px' }}
+    />
+  );
 };
 
-export default BasicMap;
+export default Map;
