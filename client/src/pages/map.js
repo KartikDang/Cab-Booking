@@ -28,7 +28,7 @@ const Map = () => {
   return (
     <div
       ref={el => (mapContainer.current = el)}
-      style={{ width: '100%', height: '500px' }}
+      style={{ width: '100%', height: '500px', display:"flex", justifyContent: "center", alignItems: "center", marginTop: "20%", marginLeft:""}}
     />
   );
 };
