@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from "reactstrap";
 import { Link } from 'react-router-dom';
-import Map from './Maps';
+import Map from '../pages/map';
 import "./book.css";
 
 const Book = () => {
@@ -192,8 +192,7 @@ const Book = () => {
                 </div>
 
                 <div className="Map">
-                    {/* <Map /> */}
-                    MAP AREA
+                    <Map />
                 </div>
             </div>
         </div>

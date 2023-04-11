@@ -16,11 +16,10 @@ import { Customers } from './pages/customers';
 import { Drivers } from './pages/drivers';
 import Book from './pages/book';
 import { PastRidesUser } from './pages/pastRidesUser';
-import Maps from './pages/Maps';
 import CurrentRide from './pages/currentRide';
 import Feedback from './pages/Feedback';
+import Map from './pages/map';
 import AdminLogin from './pages/adminLogin';
-const BasicMap = React.lazy(() => import("./pages/Maps"));
 
 function App() {
   return (
@@ -41,7 +40,6 @@ function App() {
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/customers" element={<Customers />} />
         <Route path="/drivers" element={<Drivers />} />
-        <Route path='/basic' component={BasicMap} />
         <Route path='/currentRide' element={<CurrentRide />} />
         <Route path='/pastRides' element={<PastRidesUser />} />
         <Route path = '/feedback/:id' element={<Feedback />} />
