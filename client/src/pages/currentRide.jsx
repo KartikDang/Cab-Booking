@@ -117,7 +117,7 @@ const CurrentRide = (props) => {
             body: JSON.stringify({ Booking_id, cab_id })
         }).then(res=>{
             if(res.status == 200){
-                window.location.href = '/booking'
+                window.location.href = `/feedback/${Booking_id}`
             }else{
                 alert('Error Completing Cab');
             }

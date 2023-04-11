@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { LightningLoader } from '../components/loader';
+import LoginUser from './login';
 
 export const PastRidesUser = () => {
 
@@ -58,7 +59,7 @@ export const PastRidesUser = () => {
                 <div class="container-fluid">
                     <div>
                         {/* <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top"> */}
-                        <Link to="/" className=" d-flex align-items-center gap-1 navbar-brand nav-login">
+                        <Link to="/booking" className=" d-flex align-items-center gap-1 navbar-brand nav-login">
                             <h3>Cab Service</h3>
                         </Link>
                     </div>
@@ -104,7 +105,7 @@ export const PastRidesUser = () => {
                             <th scope="col">Cost</th>
                             <th scope="col">Driver Name</th>
                             <th scope="col">Car</th>
-                            <th scope="col"></th>
+                            {/* <th scope="col"></th> */}
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
@@ -125,10 +126,14 @@ export const PastRidesUser = () => {
                                     <td>{e.estimatedcost}</td>
                                     <td>{e.name}</td>
                                     <td>{e.model}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-info">Send Feedback</button>
 
-                                    </td>
+                                    {/* <button type="button" class="btn btn-info" onClick={(e)=>{
+                                            e.preventDefault();
+                                            // <LoginUse />
+                                            console.log("Click");
+                                            
+                                        }}>Send Feedback</button> */}
+
                                 </tr>
                             )
                         })}

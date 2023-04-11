@@ -534,7 +534,7 @@ app.post('/logoutDriver', (req, res) => {
 
 app.post('/retrievePastRides', (req, res) => {
     const user_id = req.body.user_id;
-    const q = "Select driver.name,booking.estimatedcost,cab.model,booking.destination from (booking join driver on booking.driver_id = driver.driver_id) join cab on cab.cab_id = driver.cab_id  where user_id = ? and booking.status = 'Completed'";
+    const q = "Select driver.name,booking.estimatedcost,cab.model,booking.destination,booking.Booking_id from (booking join driver on booking.driver_id = driver.driver_id) join cab on cab.cab_id = driver.cab_id  where user_id = ? and booking.status = 'Completed'";
 
     db.query(q, [user_id], (err, result) => {
         if(err){
